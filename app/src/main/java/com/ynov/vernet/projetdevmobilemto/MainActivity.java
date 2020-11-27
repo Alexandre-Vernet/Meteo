@@ -2,6 +2,7 @@ package com.ynov.vernet.projetdevmobilemto;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -26,11 +27,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Démarrer Ville Activity
+        Intent intent = new Intent(getApplicationContext(), VilleActivity.class);
+        startActivity(intent);
+        finish();
+
         // Demander la permission LOCALISATION
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -88,6 +92,5 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Vous n'avez pas la permission localisation", Toast.LENGTH_SHORT).show();
 
         }
-
     }
 }
