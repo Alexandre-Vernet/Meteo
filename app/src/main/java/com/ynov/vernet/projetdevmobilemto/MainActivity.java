@@ -183,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
                     // Récupérer le nom de la ville
                     ville = addresses.get(0).getLocality();
                     url = "https://www.prevision-meteo.ch/services/json/" + ville;
-
                 }
 
                 // Gestion des erreurs
@@ -272,7 +271,6 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle("Quitter")
                 .setMessage("Voulez-vous vraiment quitter l'application")
                 .setPositiveButton("Oui", (dialogInterface, i) -> {
-                    finish();
                 })
                 .setNegativeButton("Non", (dialogInterface, i) -> {
                 })
