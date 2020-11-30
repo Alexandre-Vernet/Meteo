@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -34,7 +33,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -56,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     // URL de l'API météo
     String url;
+    String ville;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         // Si on a la permission LOCALISATION
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-            // Vérifier les permissions
+            // Vérifier les permissions réseaux et GPS plus précis
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             try {
                 assert locationManager != null;
@@ -182,8 +181,9 @@ public class MainActivity extends AppCompatActivity {
                 List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
                 if (addresses != null) {
                     // Récupérer le nom de la ville
-                    String ville = addresses.get(0).getLocality();
-                    Toast.makeText(this, ville, Toast.LENGTH_SHORT).show();
+                    ville = addresses.get(0).getLocality();
+                    url = "https://www.prevision-meteo.ch/services/json/" + ville;
+
                 }
 
                 // Gestion des erreurs
@@ -194,12 +194,11 @@ public class MainActivity extends AppCompatActivity {
             // Instancier RequestQueue
             RequestQueue queue = Volley.newRequestQueue(this);
 
-            // Récuperer la ville saisie précédemment
+            // Récuperer la ville saisie dans la VilleActivity
             Bundle extras = getIntent().getExtras();
             if (extras != null)
                 url = "https://www.prevision-meteo.ch/services/json/" + extras.getString("url");
 
-            url = "https://www.prevision-meteo.ch/services/json/Paris";
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                     response -> {
