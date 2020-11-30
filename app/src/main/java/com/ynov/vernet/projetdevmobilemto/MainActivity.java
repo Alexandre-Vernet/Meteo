@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -33,6 +34,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -197,20 +199,46 @@ public class MainActivity extends AppCompatActivity {
             if (extras != null)
                 url = "https://www.prevision-meteo.ch/services/json/" + extras.getString("url");
 
+            url = "https://www.prevision-meteo.ch/services/json/Paris";
+
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                     response -> {
                         try {
                             // Récupérer les données
                             JSONObject jsonObject = new JSONObject(response);
 
+                            // city_info
+                            JSONObject city_info = jsonObject.getJSONObject("city_info");
+                            String ville = city_info.getString("name");
+                            String leveSoleil = city_info.getString("sunrise");
+                            String coucheSoleil = city_info.getString("sunset");
+
                             // current_condition
                             JSONObject current_condition = jsonObject.getJSONObject("current_condition");
                             String icone = current_condition.getString("icon_big");
                             String tmp = current_condition.getString("tmp");
+                            String condition = current_condition.getString("condition");
+                            String humidite = current_condition.getString("humidity");
+                            String vent = current_condition.getString("wnd_gust");
+
+                            // fcst_day_0
+                            JSONObject fcst_day_0 = jsonObject.getJSONObject("fcst_day_0");
+                            String day_long = fcst_day_0.getString("day_long");
+                            String tmin = fcst_day_0.getString("tmin");
+                            String tmax = fcst_day_0.getString("tmax");
 
                             // Afficher les données du jour
                             Picasso.get().load(icone).into(imageViewIcone);
-                            textViewTemperature.setText("Température : " + tmp);
+                            textViewVille.setText(ville);
+                            textViewJour.setText(day_long);
+                            textViewTemperature.setText(tmp + " °C");
+                            textViewCondition.setText(condition);
+                            textViewTMin.setText(tmin + " °C");
+                            textViewTMax.setText(tmax + " °C");
+                            textViewHumidite.setText(humidite + " %");
+                            textViewLeverSoleil.setText(leveSoleil);
+                            textViewCoucherSoleil.setText(coucheSoleil);
+                            textViewVent.setText(vent + " /km");
 
                             // Si la ville saisie n'a pas été trouvée
                         } catch (JSONException e) {
