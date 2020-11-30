@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -92,5 +93,20 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Vous n'avez pas la permission localisation", Toast.LENGTH_SHORT).show();
 
         }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Quitter")
+                .setMessage("Voulez-vous vraiment quitter l'application")
+                .setPositiveButton("Oui", (dialogInterface, i) -> {
+                    finish();
+                })
+                .setNegativeButton("Non", (dialogInterface, i) -> {
+                })
+                .show();
+        alertDialog.setCanceledOnTouchOutside(false);
     }
 }
