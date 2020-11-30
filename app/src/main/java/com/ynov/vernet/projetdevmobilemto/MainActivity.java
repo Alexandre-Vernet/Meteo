@@ -9,6 +9,9 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.View;
+import android.view.animation.OvershootInterpolator;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,11 +20,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.ViewCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -33,10 +39,20 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     ImageView imageViewIcone;
-    TextView textViewTemperature;
+    EditText editTextVille;
+    TextView textViewVille, textViewJour, textViewTemperature, textViewCondition, textViewTMin, textViewTMax, textViewHumidite,
+            textViewLeverSoleil, textViewCoucherSoleil, textViewVent;
 
+    // Floating Action Button
+    FloatingActionButton villeFab, localisationFab;
+    ExtendedFloatingActionButton fab;
+    TextView villeActionText, localisationActionText;
+    Boolean isAllFabsVisible;
+
+    // GPS
     Location gps_loc = null, network_loc = null;
 
+    // URL de l'API météo
     String url;
 
     @Override
@@ -44,14 +60,83 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startActivity(new Intent(getApplicationContext(), VilleActivity.class));
-        finish();
+        // Floating Action Button
+        fab = findViewById(R.id.fab);
+        villeFab = findViewById(R.id.villeFab);
+        localisationFab = findViewById(R.id.localisationFab);
+
+        villeActionText = findViewById(R.id.ville_action_text);
+        localisationActionText = findViewById(R.id.localisation_action_text);
+
+        villeFab.setVisibility(View.GONE);
+        localisationFab.setVisibility(View.GONE);
+        villeActionText.setVisibility(View.GONE);
+        localisationActionText.setVisibility(View.GONE);
+
+        isAllFabsVisible = false;
+
+        fab.shrink();
+
+        fab.setOnClickListener(
+                view -> {
+                    if (!isAllFabsVisible) {
+                        ViewCompat.animate(fab)
+                                .rotation(135.0F)
+                                .withLayer()
+                                .setDuration(300L)
+                                .setInterpolator(new OvershootInterpolator(10.0F))
+                                .start();
+                        villeFab.show();
+                        localisationFab.show();
+                        villeActionText.setVisibility(View.VISIBLE);
+                        localisationActionText.setVisibility(View.VISIBLE);
+                        fab.extend();
+                        isAllFabsVisible = true;
+                    } else {
+                        ViewCompat.animate(fab)
+                                .rotation(0.0F)
+                                .withLayer()
+                                .setDuration(300L)
+                                .setInterpolator(new OvershootInterpolator(10.0F))
+                                .start();
+                        villeFab.hide();
+                        localisationFab.hide();
+                        villeActionText.setVisibility(View.GONE);
+                        localisationActionText.setVisibility(View.GONE);
+                        fab.shrink();
+                        isAllFabsVisible = false;
+                    }
+                });
+
+        // Récupérer la localisation de l'emplacement du téléphone
+        localisationFab.setOnClickListener(
+                view -> {
+                    // Récupérer la localisation ici
+                });
+
+        // Saisir une ville manuellement
+        villeFab.setOnClickListener(
+                view -> {
+                    startActivity(new Intent(getApplicationContext(), VilleActivity.class));
+                    finish();
+                });
+
         // Demander la permission LOCALISATION
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
 
-        // Référence
+        // Références
         imageViewIcone = findViewById(R.id.imageViewIcone);
+        editTextVille = findViewById(R.id.editTextVille);
+        textViewVille = findViewById(R.id.textViewVille);
+        textViewCondition = findViewById(R.id.textViewCondition);
         textViewTemperature = findViewById(R.id.textViewTemperature);
+        textViewTMin = findViewById(R.id.textViewTMin);
+        textViewTMax = findViewById(R.id.textViewTMax);
+        textViewHumidite = findViewById(R.id.textViewHumidite);
+        textViewLeverSoleil = findViewById(R.id.textViewLeverSoleil);
+        textViewCoucherSoleil = findViewById(R.id.textViewCoucherSoleil);
+        textViewVent = findViewById(R.id.textViewVent);
+        textViewJour = findViewById(R.id.textViewJour);
     }
 
     @Override
@@ -151,6 +236,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Vous n'avez pas la permission localisation", Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
