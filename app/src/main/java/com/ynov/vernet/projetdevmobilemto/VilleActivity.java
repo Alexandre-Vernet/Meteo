@@ -1,5 +1,6 @@
 package com.ynov.vernet.projetdevmobilemto;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
@@ -21,8 +22,6 @@ import org.json.JSONObject;
 
 public class VilleActivity extends AppCompatActivity {
 
-    ImageView imageViewIcone;
-    TextView textViewTemperature;
     EditText editTextVille;
 
     String url;
@@ -33,8 +32,6 @@ public class VilleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ville);
 
         // Référence
-        imageViewIcone = findViewById(R.id.imageViewIcone);
-        textViewTemperature = findViewById(R.id.textViewTemperature);
         editTextVille = findViewById(R.id.editTextVille);
 
         // Ouvrir le clavier
@@ -57,42 +54,11 @@ public class VilleActivity extends AppCompatActivity {
                 // Récupérer la ville saisie
                 url = "https://www.prevision-meteo.ch/services/json/" + editTextVille.getText().toString();
 
-                // Instancier RequestQueue
-                RequestQueue queue = Volley.newRequestQueue(this);
-
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                        response -> {
-                            try {
-                                // Récupérer les données
-                                JSONObject jsonObject = new JSONObject(response);
-
-                                // current_condition
-                                JSONObject current_condition = jsonObject.getJSONObject("current_condition");
-                                String icone = current_condition.getString("icon_big");
-                                String tmp = current_condition.getString("tmp");
-
-                                // Afficher les données du jour
-                                Picasso.get().load(icone).into(imageViewIcone);
-                                textViewTemperature.setText("Température : " + tmp);
-
-                                // Si la ville saisie n'a pas été trouvée
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                                AlertDialog alertDialog = new AlertDialog.Builder(this)
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .setTitle("Erreur")
-                                        .setMessage("La ville saisie n'a pas été trouvé")
-                                        .setPositiveButton("OK", (dialogInterface, i) -> {
-                                        })
-                                        .show();
-                                alertDialog.setCanceledOnTouchOutside(false);
-                            }
-                        },
-
-                        error -> editTextVille.setError("Désolé, ça n'a pas fonctionné"));
-
-                // Ajouter la requête à la RequestQueue.
-                queue.add(stringRequest);
+                // Démarrer l'activité en envoyant nom
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("url", url);
+                startActivity(intent);
+                finish();
             }
         });
     }

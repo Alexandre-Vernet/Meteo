@@ -9,31 +9,47 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    ImageView imageViewIcone;
+    TextView textViewTemperature;
+
     Location gps_loc = null, network_loc = null;
+
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Démarrer Ville Activity
-        Intent intent = new Intent(getApplicationContext(), VilleActivity.class);
-        startActivity(intent);
-        finish();
-
         // Demander la permission LOCALISATION
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+
+        // Référence
+        imageViewIcone = findViewById(R.id.imageViewIcone);
+        textViewTemperature = findViewById(R.id.textViewTemperature);
     }
 
     @Override
@@ -86,11 +102,51 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            // Instancier RequestQueue
+            RequestQueue queue = Volley.newRequestQueue(this);
+
+            // Récuperer la ville saisie précédemment
+            Bundle extras = getIntent().getExtras();
+            if (extras != null)
+                url = "https://www.prevision-meteo.ch/services/json/" + extras.getString("url");
+
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    response -> {
+                        try {
+                            // Récupérer les données
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            // current_condition
+                            JSONObject current_condition = jsonObject.getJSONObject("current_condition");
+                            String icone = current_condition.getString("icon_big");
+                            String tmp = current_condition.getString("tmp");
+
+                            // Afficher les données du jour
+                            Picasso.get().load(icone).into(imageViewIcone);
+                            textViewTemperature.setText("Température : " + tmp);
+
+                            // Si la ville saisie n'a pas été trouvée
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            AlertDialog alertDialog = new AlertDialog.Builder(this)
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setTitle("Erreur")
+                                    .setMessage("La ville saisie n'a pas été trouvé")
+                                    .setPositiveButton("OK", (dialogInterface, i) -> {
+                                    })
+                                    .show();
+                            alertDialog.setCanceledOnTouchOutside(false);
+                        }
+                    },
+
+                    error -> Toast.makeText(this, "Désolé, ça n'a pas fonctionné", Toast.LENGTH_SHORT).show());
+
+            // Ajouter la requête à la RequestQueue.
+            queue.add(stringRequest);
 
             // Si on n'a pas la permission LOCALISATION
         } else if (grantResults.length > 0) {
             Toast.makeText(this, "Vous n'avez pas la permission localisation", Toast.LENGTH_SHORT).show();
-
         }
     }
 }
