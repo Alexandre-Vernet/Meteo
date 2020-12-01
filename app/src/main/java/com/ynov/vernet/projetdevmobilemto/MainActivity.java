@@ -53,8 +53,9 @@ public class MainActivity extends AppCompatActivity {
     Location gps_loc = null, network_loc = null;
 
     // URL de l'API météo
-    String url;
-    String ville;
+    String url, villeGPS;
+
+    private boolean recupLocalisation = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +113,24 @@ public class MainActivity extends AppCompatActivity {
         // Récupérer la localisation de l'emplacement du téléphone
         localisationFab.setOnClickListener(
                 view -> {
-                    // Récupérer la localisation ici
+                    recupLocalisation = true;
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+
+                    // Masquer le menu
+                    ViewCompat.animate(fab)
+                            .rotation(0.0F)
+                            .withLayer()
+                            .setDuration(300L)
+                            .setInterpolator(new OvershootInterpolator(10.0F))
+                            .start();
+                    villeFab.hide();
+                    localisationFab.hide();
+                    villeActionText.setVisibility(View.GONE);
+                    localisationActionText.setVisibility(View.GONE);
+                    fab.shrink();
+                    isAllFabsVisible = false;
                 });
+
 
         // Saisir une ville manuellement
         villeFab.setOnClickListener(
@@ -181,8 +198,8 @@ public class MainActivity extends AppCompatActivity {
                 List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
                 if (addresses != null) {
                     // Récupérer le nom de la ville
-                    ville = addresses.get(0).getLocality();
-                    url = "https://www.prevision-meteo.ch/services/json/" + ville;
+                    villeGPS = addresses.get(0).getLocality();
+                    url = "https://www.prevision-meteo.ch/services/json/" + villeGPS;
                 }
 
                 // Gestion des erreurs
@@ -193,10 +210,14 @@ public class MainActivity extends AppCompatActivity {
             // Instancier RequestQueue
             RequestQueue queue = Volley.newRequestQueue(this);
 
-            // Récuperer la ville saisie dans la VilleActivity
+            // Récupérer la ville saisie dans la VilleActivity
             Bundle extras = getIntent().getExtras();
             if (extras != null)
-                url = "https://www.prevision-meteo.ch/services/json/" + extras.getString("url");
+                url = "https://www.prevision-meteo.ch/services/json/" + extras.getString("ville");
+
+            // Bouton récupérer la localisation
+            if (recupLocalisation)
+                url = "https://www.prevision-meteo.ch/services/json/" + villeGPS;
 
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -236,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
                             textViewHumidite.setText(humidite + " %");
                             textViewLeverSoleil.setText(leveSoleil);
                             textViewCoucherSoleil.setText(coucheSoleil);
-                            textViewVent.setText(vent + " /km");
+                            textViewVent.setText(vent + " / km");
 
                             // Si la ville saisie n'a pas été trouvée
                         } catch (JSONException e) {
