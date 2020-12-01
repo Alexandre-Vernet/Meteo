@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.ViewCompat;
 
@@ -28,6 +30,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     String url, villeGPS;
 
     private boolean recupLocalisation = false;
+    CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,9 +211,6 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            // Instancier RequestQueue
-            RequestQueue queue = Volley.newRequestQueue(this);
-
             // Récupérer la ville saisie dans la VilleActivity
             Bundle extras = getIntent().getExtras();
             if (extras != null)
@@ -220,69 +221,78 @@ public class MainActivity extends AppCompatActivity {
                 url = "https://www.prevision-meteo.ch/services/json/" + villeGPS;
 
 
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                    response -> {
-                        try {
-                            // Récupérer les données
-                            JSONObject jsonObject = new JSONObject(response);
-
-                            // city_info
-                            JSONObject city_info = jsonObject.getJSONObject("city_info");
-                            String ville = city_info.getString("name");
-                            String leveSoleil = city_info.getString("sunrise");
-                            String coucheSoleil = city_info.getString("sunset");
-
-                            // current_condition
-                            JSONObject current_condition = jsonObject.getJSONObject("current_condition");
-                            String icone = current_condition.getString("icon_big");
-                            String tmp = current_condition.getString("tmp");
-                            String condition = current_condition.getString("condition");
-                            String humidite = current_condition.getString("humidity");
-                            String vent = current_condition.getString("wnd_gust");
-
-                            // fcst_day_0
-                            JSONObject fcst_day_0 = jsonObject.getJSONObject("fcst_day_0");
-                            String day_long = fcst_day_0.getString("day_long");
-                            String tmin = fcst_day_0.getString("tmin");
-                            String tmax = fcst_day_0.getString("tmax");
-
-                            // Afficher les données du jour
-                            Picasso.get().load(icone).into(imageViewIcone);
-                            textViewVille.setText(ville);
-                            textViewJour.setText(day_long);
-                            textViewTemperature.setText(tmp + " °C");
-                            textViewCondition.setText(condition);
-                            textViewTMin.setText(tmin + " °C");
-                            textViewTMax.setText(tmax + " °C");
-                            textViewHumidite.setText(humidite + " %");
-                            textViewLeverSoleil.setText(leveSoleil);
-                            textViewCoucherSoleil.setText(coucheSoleil);
-                            textViewVent.setText(vent + " / km");
-
-                            // Si la ville saisie n'a pas été trouvée
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            AlertDialog alertDialog = new AlertDialog.Builder(this)
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .setTitle("Erreur")
-                                    .setMessage("La ville saisie n'a pas été trouvé")
-                                    .setPositiveButton("OK", (dialogInterface, i) -> {
-                                    })
-                                    .show();
-                            alertDialog.setCanceledOnTouchOutside(false);
-                        }
-                    },
-
-                    error -> Toast.makeText(this, "Désolé, ça n'a pas fonctionné", Toast.LENGTH_SHORT).show());
-
-            // Ajouter la requête à la RequestQueue.
-            queue.add(stringRequest);
-
             // Si on n'a pas la permission LOCALISATION
         } else if (grantResults.length > 0) {
-            Toast.makeText(this, "Vous n'avez pas la permission localisation", Toast.LENGTH_SHORT).show();
+            // Récupérer la météo de Paris
+            url = "https://www.prevision-meteo.ch/services/json/Paris";
+
+            // Affiche une boîte de texte
+            Snackbar.make(findViewById(R.id.constraintLayout), "Impossible de récupérer votre localisation", Snackbar.LENGTH_LONG)
+                    .setAction("Activer", v -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
+                    .show();
         }
+
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try {
+                        // Récupérer les données
+                        JSONObject jsonObject = new JSONObject(response);
+
+                        // city_info
+                        JSONObject city_info = jsonObject.getJSONObject("city_info");
+                        String ville = city_info.getString("name");
+                        String leveSoleil = city_info.getString("sunrise");
+                        String coucheSoleil = city_info.getString("sunset");
+
+                        // current_condition
+                        JSONObject current_condition = jsonObject.getJSONObject("current_condition");
+                        String icone = current_condition.getString("icon_big");
+                        String tmp = current_condition.getString("tmp");
+                        String condition = current_condition.getString("condition");
+                        String humidite = current_condition.getString("humidity");
+                        String vent = current_condition.getString("wnd_gust");
+
+                        // fcst_day_0
+                        JSONObject fcst_day_0 = jsonObject.getJSONObject("fcst_day_0");
+                        String day_long = fcst_day_0.getString("day_long");
+                        String tmin = fcst_day_0.getString("tmin");
+                        String tmax = fcst_day_0.getString("tmax");
+
+                        // Afficher les données du jour
+                        Picasso.get().load(icone).into(imageViewIcone);
+                        textViewVille.setText(ville);
+                        textViewJour.setText(day_long);
+                        textViewTemperature.setText(tmp + " °C");
+                        textViewCondition.setText(condition);
+                        textViewTMin.setText(tmin + " °C");
+                        textViewTMax.setText(tmax + " °C");
+                        textViewHumidite.setText(humidite + " %");
+                        textViewLeverSoleil.setText(leveSoleil);
+                        textViewCoucherSoleil.setText(coucheSoleil);
+                        textViewVent.setText(vent + " / km");
+
+                        // Si la ville saisie n'a pas été trouvée
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setTitle("Erreur")
+                                .setMessage("La ville saisie n'a pas été trouvé")
+                                .setPositiveButton("OK", (dialogInterface, i) -> {
+                                })
+                                .show();
+                        alertDialog.setCanceledOnTouchOutside(false);
+                    }
+                },
+
+                error -> Toast.makeText(this, "Désolé, ça n'a pas fonctionné", Toast.LENGTH_SHORT).show());
+
+        // Ajouter la requête à la RequestQueue.
+        queue.add(stringRequest);
     }
+
 
     @Override
     public void onBackPressed() {
