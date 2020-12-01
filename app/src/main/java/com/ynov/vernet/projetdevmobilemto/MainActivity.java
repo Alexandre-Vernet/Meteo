@@ -20,7 +20,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.ViewCompat;
 
@@ -59,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
     String url, villeGPS;
 
     private boolean recupLocalisation = false;
-    CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,16 +209,6 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            // Récupérer la ville saisie dans la VilleActivity
-            Bundle extras = getIntent().getExtras();
-            if (extras != null)
-                url = "https://www.prevision-meteo.ch/services/json/" + extras.getString("ville");
-
-            // Bouton récupérer la localisation
-            if (recupLocalisation)
-                url = "https://www.prevision-meteo.ch/services/json/" + villeGPS;
-
-
             // Si on n'a pas la permission LOCALISATION
         } else if (grantResults.length > 0) {
             // Récupérer la météo de Paris
@@ -231,6 +219,16 @@ public class MainActivity extends AppCompatActivity {
                     .setAction("Activer", v -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
                     .show();
         }
+
+
+        // Récupérer la ville saisie dans la VilleActivity
+        Bundle extras = getIntent().getExtras();
+        if (extras != null)
+            url = "https://www.prevision-meteo.ch/services/json/" + extras.getString("ville");
+
+        // Bouton récupérer la localisation
+        if (recupLocalisation)
+            url = "https://www.prevision-meteo.ch/services/json/" + villeGPS;
 
 
         RequestQueue queue = Volley.newRequestQueue(this);
