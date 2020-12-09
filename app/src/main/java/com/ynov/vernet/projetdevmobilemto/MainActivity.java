@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -27,6 +28,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,6 +41,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -254,22 +261,63 @@ public class MainActivity extends AppCompatActivity {
 
                         // fcst_day_0
                         JSONObject fcst_day_0 = jsonObject.getJSONObject("fcst_day_0");
-                        String day_long = fcst_day_0.getString("day_long");
+                        String[] day_long = new String[7];
+                        int[] tmax = new int[7];
+
+
+                        day_long[0] = fcst_day_0.getString("day_long");
                         String tmin = fcst_day_0.getString("tmin");
-                        String tmax = fcst_day_0.getString("tmax");
+                        tmax[0] = fcst_day_0.getInt("tmax");
+
+                        // fcst_day_1
+                        JSONObject fcst_day_1 = jsonObject.getJSONObject("fcst_day_1");
+                        day_long[1] = fcst_day_1.getString("day_long");
+                        tmax[1] = fcst_day_1.getInt("tmax");
+
+                        // fcst_day_2
+                        JSONObject fcst_day_2 = jsonObject.getJSONObject("fcst_day_2");
+                        day_long[2] = fcst_day_2.getString("day_long");
+                        tmax[2] = fcst_day_2.getInt("tmax");
+
+                        // fcst_day_3
+                        JSONObject fcst_day_3 = jsonObject.getJSONObject("fcst_day_3");
+                        day_long[3] = fcst_day_3.getString("day_long");
+                        tmax[3] = fcst_day_3.getInt("tmax");
+
+                        // fcst_day_4
+                        JSONObject fcst_day_4 = jsonObject.getJSONObject("fcst_day_4");
+                        day_long[4] = fcst_day_4.getString("day_long");
+                        tmax[4] = fcst_day_4.getInt("tmax");
 
                         // Afficher les données du jour
                         Picasso.get().load(icone).into(imageViewIcone);
                         textViewVille.setText(ville);
-                        textViewJour.setText(day_long);
+                        textViewJour.setText(day_long[0]);
                         textViewTemperature.setText(tmp + " °C");
                         textViewCondition.setText(condition);
                         textViewTMin.setText(tmin + " °C");
-                        textViewTMax.setText(tmax + " °C");
+                        textViewTMax.setText(tmax[0] + " °C");
                         textViewHumidite.setText(humidite + " %");
                         textViewLeverSoleil.setText(leveSoleil);
                         textViewCoucherSoleil.setText(coucheSoleil);
                         textViewVent.setText(vent + " / km");
+
+                        // Afficher les prévisions dans un graphique
+                        BarChart barChart = findViewById(R.id.barChart);
+                        ArrayList<BarEntry> temperature = new ArrayList<>();
+                        for (int i = 0; i <= 4; i++)
+                            temperature.add(new BarEntry(i, tmax[i]));
+
+                        BarDataSet barDataSet = new BarDataSet(temperature, "température");
+                        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                        barDataSet.setValueTextColor(Color.BLACK);
+                        barDataSet.setValueTextSize(16f);
+
+                        BarData barData = new BarData(barDataSet);
+                        barChart.setFitBars(true);
+                        barChart.setData(barData);
+                        barChart.getDescription();
+                        barChart.animateY(2000);
 
                         // Si la ville saisie n'a pas été trouvée
                     } catch (JSONException e) {
