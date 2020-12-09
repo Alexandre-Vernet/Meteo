@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean recupLocalisation = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -342,16 +343,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        AlertDialog alertDialog = new AlertDialog.Builder(this)
+        new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle("Quitter")
-                .setMessage("Voulez-vous vraiment quitter l'application")
-                .setPositiveButton("Oui", (dialogInterface, i) -> {
-                })
-                .setNegativeButton("Non", (dialogInterface, i) -> {
-                })
+                .setMessage("Voulez-vous vraiment quitter ?")
+                .setPositiveButton("Oui", (dialog, which) -> finish())
+                .setNegativeButton("Non", null)
                 .show();
-        alertDialog.setCanceledOnTouchOutside(false);
     }
 }
