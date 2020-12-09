@@ -1,278 +1,289 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/constraintLayout"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewVille"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="10dp"
-            android:text="Ville"
-            android:textAlignment="center"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/textViewJour"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="25dp"
-            android:text="Jour"
-            android:textAlignment="center"
-            android:textSize="30sp" />
-
-        <!--Condition-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageViewIcone"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:contentDescription="Icone météo"
-                android:src="@drawable/icone" />
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/textViewCondition"
+                android:id="@+id/textViewVille"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="Ville"
+                android:textAlignment="center"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/textViewJour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="25dp"
+                android:text="Jour"
+                android:textAlignment="center"
+                android:textSize="30sp" />
+
+            <!--Condition-->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="Condition"
-                android:textSize="20sp" />
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
 
+                <ImageView
+                    android:id="@+id/imageViewIcone"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:contentDescription="Icone météo"
+                    android:src="@drawable/icone" />
+
+                <TextView
+                    android:id="@+id/textViewCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="Condition"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <!--Température-->
+            <TextView
+                android:id="@+id/textViewTemperature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:text="Température"
+                android:textAlignment="center"
+                android:textSize="30sp" />
+
+            <!--T-min-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="25dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:contentDescription="TMin"
+                    android:src="@drawable/t_min" />
+
+                <TextView
+                    android:id="@+id/textViewTMin"
+                    style="@style/textSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="TMin" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:contentDescription="TMax"
+                    android:src="@drawable/t_max" />
+
+                <TextView
+                    android:id="@+id/textViewTMax"
+                    style="@style/textSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="TMax" />
+            </LinearLayout>
+
+            <!--Humidité / Vent-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="25dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:contentDescription="Humidité"
+                    android:src="@drawable/humidite" />
+
+                <TextView
+                    android:id="@+id/textViewHumidite"
+                    style="@style/textSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="Humidité" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:contentDescription="Vent"
+                    android:src="@drawable/eolienne" />
+
+                <TextView
+                    android:id="@+id/textViewVent"
+                    style="@style/textSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="Vent" />
+            </LinearLayout>
+
+            <!--Coucher / Lever du soleil-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="25dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:contentDescription="Lever soleil"
+                    android:src="@drawable/lever_soleil" />
+
+                <TextView
+                    android:id="@+id/textViewLeverSoleil"
+                    style="@style/textSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="Lever soleil" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:contentDescription="Coucher soleil"
+                    android:src="@drawable/coucher_soleil" />
+
+                <TextView
+                    android:id="@+id/textViewCoucherSoleil"
+                    style="@style/textSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="Coucher soleil" />
+            </LinearLayout>
+
+
+            <!--Graphique-->
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChart"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+                tools:layout_editor_absoluteX="16dp" />
         </LinearLayout>
+    </ScrollView>
 
-        <!--Température-->
-        <TextView
-            android:id="@+id/textViewTemperature"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:text="Température"
-            android:textAlignment="center"
-            android:textSize="30sp" />
-
-        <!--T-min-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="25dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:contentDescription="TMin"
-                android:src="@drawable/t_min" />
-
-            <TextView
-                android:id="@+id/textViewTMin"
-                style="@style/textSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="TMin" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:contentDescription="TMax"
-                android:src="@drawable/t_max" />
-
-            <TextView
-                android:id="@+id/textViewTMax"
-                style="@style/textSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="TMax" />
-        </LinearLayout>
-
-        <!--Humidité / Vent-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="25dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:contentDescription="Humidité"
-                android:src="@drawable/humidite" />
-
-            <TextView
-                android:id="@+id/textViewHumidite"
-                style="@style/textSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="Humidité" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:contentDescription="Vent"
-                android:src="@drawable/eolienne" />
-
-            <TextView
-                android:id="@+id/textViewVent"
-                style="@style/textSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="Vent" />
-        </LinearLayout>
-
-        <!--Coucher / Lever du soleil-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="25dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:contentDescription="Lever soleil"
-                android:src="@drawable/lever_soleil" />
-
-            <TextView
-                android:id="@+id/textViewLeverSoleil"
-                style="@style/textSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="Lever soleil" />
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:contentDescription="Coucher soleil"
-                android:src="@drawable/coucher_soleil" />
-
-            <TextView
-                android:id="@+id/textViewCoucherSoleil"
-                style="@style/textSize"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="Coucher soleil" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!--Graphique-->
 
     <!--Floating Action Button-->
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChart"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        tools:layout_editor_absoluteX="16dp" />
+        android:layout_height="match_parent">
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/orange"
-        android:text=""
-        app:icon="@drawable/ic_baseline_add_circle_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/orange"
+            android:text=""
+            app:icon="@drawable/ic_baseline_add_circle_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/villeFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/orange"
-        android:contentDescription="Saisir une ville"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toTopOf="@+id/fab"
-        app:layout_constraintEnd_toEndOf="@+id/fab"
-        app:srcCompat="@drawable/ic_baseline_search_24" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/villeFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/orange"
+            android:contentDescription="Saisir une ville"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toTopOf="@+id/fab"
+            app:layout_constraintEnd_toEndOf="@+id/fab"
+            app:srcCompat="@drawable/ic_baseline_search_24" />
 
-    <TextView
-        android:id="@+id/ville_action_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="Saisir une ville"
-        app:layout_constraintBottom_toBottomOf="@+id/villeFab"
-        app:layout_constraintEnd_toStartOf="@+id/villeFab"
-        app:layout_constraintTop_toTopOf="@+id/villeFab" />
+        <TextView
+            android:id="@+id/ville_action_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Saisir une ville"
+            app:layout_constraintBottom_toBottomOf="@+id/villeFab"
+            app:layout_constraintEnd_toStartOf="@+id/villeFab"
+            app:layout_constraintTop_toTopOf="@+id/villeFab" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/localisationFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/orange"
-        android:contentDescription="Localisation"
-        app:fabSize="normal"
-        app:layout_constraintBottom_toTopOf="@+id/villeFab"
-        app:layout_constraintEnd_toEndOf="@+id/villeFab"
-        app:layout_constraintStart_toStartOf="@+id/villeFab"
-        app:srcCompat="@drawable/ic_baseline_location_on_24" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/localisationFab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/orange"
+            android:contentDescription="Localisation"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toTopOf="@+id/villeFab"
+            app:layout_constraintEnd_toEndOf="@+id/villeFab"
+            app:layout_constraintStart_toStartOf="@+id/villeFab"
+            app:srcCompat="@drawable/ic_baseline_location_on_24" />
 
-    <TextView
-        android:id="@+id/localisation_action_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="Récupérer la localisation"
-        app:layout_constraintBottom_toBottomOf="@+id/localisationFab"
-        app:layout_constraintEnd_toStartOf="@+id/localisationFab"
-        app:layout_constraintTop_toTopOf="@+id/localisationFab" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/localisation_action_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Récupérer la localisation"
+            app:layout_constraintBottom_toBottomOf="@+id/localisationFab"
+            app:layout_constraintEnd_toStartOf="@+id/localisationFab"
+            app:layout_constraintTop_toTopOf="@+id/localisationFab" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
