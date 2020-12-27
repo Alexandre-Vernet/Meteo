@@ -24,7 +24,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="10dp"
-            android:text="Ville"
+            android:text= "@string/ville"
             android:textAlignment="center"
             android:textSize="40sp" />
 
@@ -36,7 +36,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="25dp"
-            android:text="Jour"
+            android:text="@string/jour"
             android:textAlignment="center"
             android:textSize="30sp" />
 
@@ -53,7 +53,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:contentDescription="Icone météo"
+                android:contentDescription="@string/icone_meteo"
                 android:src="@drawable/icone" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                android:text="Condition"
+                android:text="@string/condition"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -73,7 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
-            android:text="Température"
+            android:text="@string/temperature"
             android:textAlignment="center"
             android:textSize="30sp" />
 
@@ -90,7 +90,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:contentDescription="TMin"
+                android:contentDescription="@string/tmin"
                 android:src="@drawable/t_min" />
 
             <TextView
@@ -100,14 +100,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                android:text="TMin" />
+                android:text="@string/tmin" />
 
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:contentDescription="TMax"
+                android:contentDescription="@string/tmax"
                 android:src="@drawable/t_max" />
 
             <TextView
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                android:text="TMax" />
+                android:text="@string/tmax" />
         </LinearLayout>
 
         <!--Humidité / Vent-->
@@ -133,7 +133,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:contentDescription="Humidité"
+                android:contentDescription="@string/humidite"
                 android:src="@drawable/humidite" />
 
             <TextView
@@ -143,14 +143,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                android:text="Humidité" />
+                android:text="@string/humidite" />
 
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:contentDescription="Vent"
+                android:contentDescription="@string/vent"
                 android:src="@drawable/eolienne" />
 
             <TextView
@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                android:text="Vent" />
+                android:text="@string/vent" />
         </LinearLayout>
 
         <!--Coucher / Lever du soleil-->
@@ -176,7 +176,7 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:contentDescription="Lever soleil"
+                android:contentDescription="@string/lever_soleil"
                 android:src="@drawable/lever_soleil" />
 
             <TextView
@@ -186,14 +186,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                android:text="Lever soleil" />
+                android:text="@string/lever_soleil" />
 
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:contentDescription="Coucher soleil"
+                android:contentDescription="@string/coucher_soleil"
                 android:src="@drawable/coucher_soleil" />
 
             <TextView
@@ -203,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                android:text="Coucher soleil" />
+                android:text="@string/coucher_soleil" />
         </LinearLayout>
     </LinearLayout>
 
@@ -236,7 +236,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/orange"
-        android:contentDescription="Saisir une ville"
+        android:contentDescription="@string/saisir_ville"
         app:fabSize="normal"
         app:layout_constraintBottom_toTopOf="@+id/fab"
         app:layout_constraintEnd_toEndOf="@+id/fab"
@@ -247,7 +247,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="Saisir une ville"
+        android:text="@string/saisir_ville"
         app:layout_constraintBottom_toBottomOf="@+id/villeFab"
         app:layout_constraintEnd_toStartOf="@+id/villeFab"
         app:layout_constraintTop_toTopOf="@+id/villeFab" />
@@ -258,7 +258,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/orange"
-        android:contentDescription="Localisation"
+        android:contentDescription="@string/recuperer_localisation"
         app:fabSize="normal"
         app:layout_constraintBottom_toTopOf="@+id/villeFab"
         app:layout_constraintEnd_toEndOf="@+id/villeFab"
@@ -270,7 +270,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="Récupérer la localisation"
+        android:text="@string/recuperer_localisation"
         app:layout_constraintBottom_toBottomOf="@+id/localisationFab"
         app:layout_constraintEnd_toStartOf="@+id/localisationFab"
         app:layout_constraintTop_toTopOf="@+id/localisationFab" />
