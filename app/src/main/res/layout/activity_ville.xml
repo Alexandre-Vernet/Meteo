@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
-            android:text="Entrez une ville"
+            android:text="@string/entrez_ville"
             android:textSize="30sp"
             app:layout_constraintBottom_toTopOf="@+id/editTextVille"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
             android:layout_marginBottom="100dp"
             android:autofillHints=""
             android:ems="10"
-            android:hint="Paris"
+            android:hint="@string/paris"
             android:inputType="text"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -49,6 +49,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="60dp"
         android:padding="20dp"
-        android:text="Valider"
+        android:text="@string/valider"
         android:textSize="25sp" />
 </RelativeLayout>

@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean recupLocalisation = false;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -223,8 +222,8 @@ public class MainActivity extends AppCompatActivity {
             url = "https://www.prevision-meteo.ch/services/json/Paris";
 
             // Affiche une boîte de texte
-            Snackbar.make(findViewById(R.id.constraintLayout), "Impossible de récupérer votre localisation", Snackbar.LENGTH_LONG)
-                    .setAction("Activer", v -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
+            Snackbar.make(findViewById(R.id.constraintLayout), getString(R.string.impossible_recupe_localisation), Snackbar.LENGTH_LONG)
+                    .setAction(R.string.activer, v -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
                     .show();
         }
 
@@ -294,14 +293,14 @@ public class MainActivity extends AppCompatActivity {
                         Picasso.get().load(icone).into(imageViewIcone);
                         textViewVille.setText(ville);
                         textViewJour.setText(day_long[0]);
-                        textViewTemperature.setText(tmp + " °C");
+                        textViewTemperature.setText(getString(R.string.tmp, tmp));
                         textViewCondition.setText(condition);
-                        textViewTMin.setText(tmin + " °C");
-                        textViewTMax.setText(tmax[0] + " °C");
-                        textViewHumidite.setText(humidite + " %");
+                        textViewTMin.setText(getString(R.string.TMin, tmin));
+                        textViewTMax.setText(getString(R.string.TMax, tmax[0]));
+                        textViewHumidite.setText(getString(R.string.humidite2, humidite) + " %");
                         textViewLeverSoleil.setText(leveSoleil);
                         textViewCoucherSoleil.setText(coucheSoleil);
-                        textViewVent.setText(vent + " / km");
+                        textViewVent.setText(getString(R.string.vent2, vent));
 
                         // Afficher les prévisions dans un graphique
                         BarChart barChart = findViewById(R.id.barChart);
@@ -309,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
                         for (int i = 0; i <= 4; i++)
                             temperature.add(new BarEntry(i, tmax[i]));
 
-                        BarDataSet barDataSet = new BarDataSet(temperature, "température");
+                        BarDataSet barDataSet = new BarDataSet(temperature, getString(R.string.temperatures));
                         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
                         barDataSet.setValueTextColor(Color.BLACK);
                         barDataSet.setValueTextSize(16f);
@@ -317,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
                         BarData barData = new BarData(barDataSet);
                         barChart.setFitBars(true);
                         barChart.setData(barData);
-                        barChart.getDescription();
+                        barChart.getDescription().setText(getString(R.string.meteo_semaine));
                         barChart.animateY(2000);
 
                         // Si la ville saisie n'a pas été trouvée
@@ -325,16 +324,19 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                         AlertDialog alertDialog = new AlertDialog.Builder(this)
                                 .setIcon(android.R.drawable.ic_dialog_alert)
-                                .setTitle("Erreur")
-                                .setMessage("La ville saisie n'a pas été trouvé")
-                                .setPositiveButton("OK", (dialogInterface, i) -> {
+                                .setTitle(R.string.error)
+                                .setMessage(R.string.ville_non_trouvee)
+                                .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
+                                    Intent intent = new Intent(getApplicationContext(), VilleActivity.class);
+                                    startActivity(intent);
+                                    finish();
                                 })
                                 .show();
                         alertDialog.setCanceledOnTouchOutside(false);
                     }
                 },
 
-                error -> Toast.makeText(this, "Désolé, ça n'a pas fonctionné", Toast.LENGTH_SHORT).show());
+                error -> editTextVille.setError(getString(R.string.pas_fonctionne)));
 
         // Ajouter la requête à la RequestQueue.
         queue.add(stringRequest);
@@ -343,12 +345,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
+        super.onBackPressed();
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Quitter")
-                .setMessage("Voulez-vous vraiment quitter ?")
-                .setPositiveButton("Oui", (dialog, which) -> finish())
-                .setNegativeButton("Non", null)
+                .setTitle(R.string.quitter)
+                .setMessage(R.string.voulez_vous_vraiment_quitter)
+                .setPositiveButton(R.string.oui, (dialogInterface, i) -> {
+                })
+                .setNegativeButton(R.string.non, (dialogInterface, i) -> {
+                })
                 .show();
+        alertDialog.setCanceledOnTouchOutside(false);
     }
 }
