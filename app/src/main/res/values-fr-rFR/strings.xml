@@ -30,7 +30,7 @@
     <string name="zone_txt_ne_peut_pas_etre_vide">La zone de texte ne peut pas être vide</string>
     <string name="localisation">Localisation</string>
     <string name="recuperer_localisation">Récupérer la localisation</string>
-    <string name="impossible_recupe_localisation">Impossible de récupérer votre localisation</string>
+    <string name="impossible_recupe_localisation">Impossible de récupérer votre emplacement</string>
     <string name="activer">Activer</string>
     <string name="voulez_vous_vraiment_quitter">Voulez-vous vraiment quitter l\'application</string>
     <string name="oui">Oui</string>

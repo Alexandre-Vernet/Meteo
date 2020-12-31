@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
@@ -61,10 +62,12 @@ public class MainActivity extends AppCompatActivity {
     // GPS
     Location gps_loc = null, network_loc = null;
 
-    // URL de l'API météo
-    String url, villeGPS;
+    String url, ville;
 
-    private boolean recupLocalisation = false;
+    boolean recupLocalisation = false;
+
+    // Débug
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         localisationFab.setOnClickListener(
                 view -> {
                     recupLocalisation = true;
-                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
 
                     // Masquer le menu
                     ViewCompat.animate(fab)
@@ -184,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            // Récupérer les coordonnées fournies par le GPS
+            // Récupérer les coordonnées fournies par le GPS ou réseau
             double latitude;
             double longitude;
             Location final_loc;
@@ -207,8 +210,8 @@ public class MainActivity extends AppCompatActivity {
                 List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
                 if (addresses != null) {
                     // Récupérer le nom de la ville
-                    villeGPS = addresses.get(0).getLocality();
-                    url = "https://www.prevision-meteo.ch/services/json/" + villeGPS;
+                    ville = addresses.get(0).getLocality();
+                    url = "https://www.prevision-meteo.ch/services/json/" + ville;
                 }
 
                 // Gestion des erreurs
@@ -222,21 +225,21 @@ public class MainActivity extends AppCompatActivity {
             url = "https://www.prevision-meteo.ch/services/json/Paris";
 
             // Affiche une boîte de texte
-            Snackbar.make(findViewById(R.id.constraintLayout), getString(R.string.impossible_recupe_localisation), Snackbar.LENGTH_LONG)
+            Snackbar.make(findViewById(R.id.barChart), getString(R.string.impossible_recupe_localisation), Snackbar.LENGTH_LONG)
                     .setAction(R.string.activer, v -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
                     .show();
         }
 
 
-        // Récupérer la ville saisie dans la VilleActivity
+        // Si une ville a été envoyée de la VilleActivity
         Bundle extras = getIntent().getExtras();
         if (extras != null)
             url = "https://www.prevision-meteo.ch/services/json/" + extras.getString("ville");
 
+
         // Bouton récupérer la localisation
         if (recupLocalisation)
-            url = "https://www.prevision-meteo.ch/services/json/" + villeGPS;
-
+            url = "https://www.prevision-meteo.ch/services/json/" + ville;
 
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -322,17 +325,19 @@ public class MainActivity extends AppCompatActivity {
                         // Si la ville saisie n'a pas été trouvée
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        AlertDialog alertDialog = new AlertDialog.Builder(this)
-                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                .setTitle(R.string.error)
-                                .setMessage(R.string.ville_non_trouvee)
-                                .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
-                                    Intent intent = new Intent(getApplicationContext(), VilleActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                })
-                                .show();
-                        alertDialog.setCanceledOnTouchOutside(false);
+                        if (!url.equals("https://www.prevision-meteo.ch/services/json/null")) {
+                            AlertDialog alertDialog = new AlertDialog.Builder(this)
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setTitle(R.string.error)
+                                    .setMessage(R.string.ville_non_trouvee)
+                                    .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
+                                        Intent intent = new Intent(getApplicationContext(), VilleActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    })
+                                    .show();
+                            alertDialog.setCanceledOnTouchOutside(false);
+                        }
                     }
                 },
 
