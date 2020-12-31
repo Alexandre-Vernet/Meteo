@@ -21,8 +21,7 @@
     <string name="TMin">TMin : %1$S °C</string>
     <string name="humidite2">Humidité : %1$S</string>
     <string name="vent2">Vent : %1$S km / h</string>
-    <string name="meteo_semaine">"Prévision météo pour la semaine "</string>
-    <string name="ville_non_trouvee">La ville saisie n\' a pas été trouvé</string>
+    <string name="ville_non_trouvee">Prévisions météo pour la semaine</string>
     <string name="ok">Ok</string>
     <string name="entrez_ville">Entrez une ville</string>
     <string name="paris">Paris</string>
@@ -36,4 +35,5 @@
     <string name="oui">Oui</string>
     <string name="non">Non</string>
     <string name="quitter">Quitter</string>
+    <string name="meteo_semaine">" Prévisions météo pour la semaine"</string>
 </resources>
