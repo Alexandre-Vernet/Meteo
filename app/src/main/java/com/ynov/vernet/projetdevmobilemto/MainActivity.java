@@ -3,6 +3,7 @@ package com.ynov.vernet.projetdevmobilemto;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Address;
@@ -11,7 +12,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
@@ -73,6 +73,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Références
+        imageViewIcone = findViewById(R.id.imageViewIcone);
+        editTextVille = findViewById(R.id.editTextVille);
+        textViewVille = findViewById(R.id.textViewVille);
+        textViewCondition = findViewById(R.id.textViewCondition);
+        textViewTemperature = findViewById(R.id.textViewTemperature);
+        textViewTMin = findViewById(R.id.textViewTMin);
+        textViewTMax = findViewById(R.id.textViewTMax);
+        textViewHumidite = findViewById(R.id.textViewHumidite);
+        textViewLeverSoleil = findViewById(R.id.textViewLeverSoleil);
+        textViewCoucherSoleil = findViewById(R.id.textViewCoucherSoleil);
+        textViewVent = findViewById(R.id.textViewVent);
+        textViewJour = findViewById(R.id.textViewJour);
+
+
 
         // Floating Action Button
         fab = findViewById(R.id.fab);
@@ -153,20 +169,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Demander la permission LOCALISATION
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-
-        // Références
-        imageViewIcone = findViewById(R.id.imageViewIcone);
-        editTextVille = findViewById(R.id.editTextVille);
-        textViewVille = findViewById(R.id.textViewVille);
-        textViewCondition = findViewById(R.id.textViewCondition);
-        textViewTemperature = findViewById(R.id.textViewTemperature);
-        textViewTMin = findViewById(R.id.textViewTMin);
-        textViewTMax = findViewById(R.id.textViewTMax);
-        textViewHumidite = findViewById(R.id.textViewHumidite);
-        textViewLeverSoleil = findViewById(R.id.textViewLeverSoleil);
-        textViewCoucherSoleil = findViewById(R.id.textViewCoucherSoleil);
-        textViewVent = findViewById(R.id.textViewVent);
-        textViewJour = findViewById(R.id.textViewJour);
     }
 
     @Override
@@ -212,6 +214,12 @@ public class MainActivity extends AppCompatActivity {
                     // Récupérer le nom de la ville
                     ville = addresses.get(0).getLocality();
                     url = "https://www.prevision-meteo.ch/services/json/" + ville;
+
+                    // Stocker la ville dans la mémoire
+                    SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putString("ville", ville);
+                    editor.apply();
                 }
 
                 // Gestion des erreurs
@@ -221,13 +229,26 @@ public class MainActivity extends AppCompatActivity {
 
             // Si on n'a pas la permission LOCALISATION
         } else if (grantResults.length > 0) {
-            // Récupérer la météo de Paris
-            url = "https://www.prevision-meteo.ch/services/json/Paris";
 
-            // Affiche une boîte de texte
-            Snackbar.make(findViewById(R.id.barChart), getString(R.string.impossible_recupe_localisation), Snackbar.LENGTH_LONG)
-                    .setAction(R.string.activer, v -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
-                    .show();
+            if (ville == null) {
+
+                // Récupération de la météo de Paris
+                url = "https://www.prevision-meteo.ch/services/json/Paris";
+
+                // Affiche une boîte de texte
+                Snackbar.make(findViewById(R.id.barChart), getString(R.string.impossible_recupe_localisation), Snackbar.LENGTH_LONG)
+                        .setAction(R.string.activer, v -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
+                        .show();
+
+                // Si une ville a été enregistré dans la mémoire
+            } else {
+                // Récupérer la dernière localisation enregistrée
+                SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+                String ville = prefs.getString("ville", null);
+
+                url = "https://www.prevision-meteo.ch/services/json/" + ville;
+                Toast.makeText(this, "Récupération de la dernière localisation connue", Toast.LENGTH_SHORT).show();
+            }
         }
 
 
@@ -241,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
         if (recupLocalisation)
             url = "https://www.prevision-meteo.ch/services/json/" + ville;
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+        RequestQueue queue = com.android.volley.toolbox.Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                     try {
@@ -345,6 +366,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Ajouter la requête à la RequestQueue.
         queue.add(stringRequest);
+
     }
 
 
