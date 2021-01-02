@@ -57,9 +57,8 @@ public class MainActivity extends AppCompatActivity {
             textViewLeverSoleil, textViewCoucherSoleil, textViewVent;
 
     // Floating Action Button
-    FloatingActionButton villeFab, localisationFab;
     ExtendedFloatingActionButton fab;
-    TextView villeActionText, localisationActionText;
+    FloatingActionButton villeFab, localisationFab, parametreFab;
     Boolean isAllFabsVisible;
 
     // GPS
@@ -98,14 +97,12 @@ public class MainActivity extends AppCompatActivity {
         fab = findViewById(R.id.fab);
         villeFab = findViewById(R.id.villeFab);
         localisationFab = findViewById(R.id.localisationFab);
+        parametreFab = findViewById(R.id.parametreFab);
 
-        villeActionText = findViewById(R.id.ville_action_text);
-        localisationActionText = findViewById(R.id.localisation_action_text);
 
         villeFab.setVisibility(View.GONE);
         localisationFab.setVisibility(View.GONE);
-        villeActionText.setVisibility(View.GONE);
-        localisationActionText.setVisibility(View.GONE);
+        parametreFab.setVisibility(View.GONE);
 
         isAllFabsVisible = false;
 
@@ -122,8 +119,7 @@ public class MainActivity extends AppCompatActivity {
                                 .start();
                         villeFab.show();
                         localisationFab.show();
-                        villeActionText.setVisibility(View.VISIBLE);
-                        localisationActionText.setVisibility(View.VISIBLE);
+                        parametreFab.show();
                         fab.extend();
                         isAllFabsVisible = true;
                     } else {
@@ -135,8 +131,7 @@ public class MainActivity extends AppCompatActivity {
                                 .start();
                         villeFab.hide();
                         localisationFab.hide();
-                        villeActionText.setVisibility(View.GONE);
-                        localisationActionText.setVisibility(View.GONE);
+                        parametreFab.hide();
                         fab.shrink();
                         isAllFabsVisible = false;
                     }
@@ -155,11 +150,6 @@ public class MainActivity extends AppCompatActivity {
                             .setDuration(300L)
                             .setInterpolator(new OvershootInterpolator(10.0F))
                             .start();
-                    villeFab.hide();
-                    localisationFab.hide();
-                    villeActionText.setVisibility(View.GONE);
-                    localisationActionText.setVisibility(View.GONE);
-                    fab.shrink();
                     isAllFabsVisible = false;
                 });
 
@@ -170,6 +160,12 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), VilleActivity.class));
                     finish();
                 });
+
+        // Paramètres
+        parametreFab.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), ParametresActivity.class));
+            finish();
+        });
 
         // Demander la permission LOCALISATION
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);

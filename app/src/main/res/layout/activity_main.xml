@@ -234,6 +234,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <!--Saisir une ville-->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/villeFab"
             android:layout_width="wrap_content"
@@ -246,16 +247,8 @@
             app:layout_constraintEnd_toEndOf="@+id/fab"
             app:srcCompat="@drawable/ic_baseline_search_24" />
 
-        <TextView
-            android:id="@+id/ville_action_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="@string/saisir_ville"
-            app:layout_constraintBottom_toBottomOf="@+id/villeFab"
-            app:layout_constraintEnd_toStartOf="@+id/villeFab"
-            app:layout_constraintTop_toTopOf="@+id/villeFab" />
 
+        <!--Localisation-->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/localisationFab"
             android:layout_width="wrap_content"
@@ -269,14 +262,20 @@
             app:layout_constraintStart_toStartOf="@+id/villeFab"
             app:srcCompat="@drawable/ic_baseline_location_on_24" />
 
-        <TextView
-            android:id="@+id/localisation_action_text"
+
+        <!--Paramètres-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/parametreFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="@string/recuperer_localisation"
-            app:layout_constraintBottom_toBottomOf="@+id/localisationFab"
-            app:layout_constraintEnd_toStartOf="@+id/localisationFab"
-            app:layout_constraintTop_toTopOf="@+id/localisationFab" />
+            android:backgroundTint="@color/orange"
+            android:contentDescription="Paramètres"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/fab"
+            app:layout_constraintEnd_toStartOf="@+id/fab"
+            app:srcCompat="@drawable/ic_baseline_settings_24"
+            android:layout_marginBottom="35dp"
+            android:layout_marginEnd="8dp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </RelativeLayout>

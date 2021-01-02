@@ -36,4 +36,11 @@
     <string name="non">Non</string>
     <string name="quitter">Quitter</string>
     <string name="meteo_semaine">" Prévisions météo pour la semaine"</string>
+    <string name="reply_title">Valeur</string>
+    <string name="unite">Unité</string>
+    <string name="a_propos">A propos</string>
+    <string name="developpeurs">Développeurs</string>
+    <string name="developpe_par">Développé par Alexandre Vernet et Valentin Arpin</string>
+    <string name="version">Version</string>
+    <string name="general">Général</string>
 </resources>
