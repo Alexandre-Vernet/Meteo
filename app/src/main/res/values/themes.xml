@@ -20,4 +20,8 @@
     <style name="textSize">
         <item name="android:textSize">18dp</item>
     </style>
+    <style name="ThemeOverlay.ProjetDevMobileMétéo.AppWidgetContainer" parent="">
+        <item name="appWidgetBackgroundColor">@color/light_blue_600</item>
+        <item name="appWidgetTextColor">@color/light_blue_50</item>
+    </style>
 </resources>

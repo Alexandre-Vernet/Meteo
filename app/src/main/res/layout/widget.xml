@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:theme="@style/ThemeOverlay.ProjetDevMobileMétéo.AppWidgetContainer"
+    android:background="?attr/appWidgetBackgroundColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="@dimen/widget_margin" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/appWidgetBackgroundColor"
+        android:textColor="?attr/appWidgetTextColor"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/appwidget_text"
+        android:text="Castelginest" />
+
+    <TextView
+        android:id="@+id/appwidget_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/appWidgetBackgroundColor"
+        android:text="20°C"
+        android:textColor="?attr/appWidgetTextColor"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/appwidget_text" />
+
+
+</LinearLayout>

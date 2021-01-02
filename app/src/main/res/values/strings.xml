@@ -35,4 +35,6 @@
     <string name="oui">Yes</string>
     <string name="non">No</string>
     <string name="quitter">Leave</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

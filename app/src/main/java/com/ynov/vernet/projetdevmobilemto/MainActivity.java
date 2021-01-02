@@ -215,6 +215,9 @@ public class MainActivity extends AppCompatActivity {
                     ville = addresses.get(0).getLocality();
                     url = "https://www.prevision-meteo.ch/services/json/" + ville;
 
+                    // Mettre à jour le widget
+
+
                     // Stocker la ville dans la mémoire
                     SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();
