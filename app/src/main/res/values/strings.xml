@@ -51,6 +51,7 @@
     <string name="version">Version</string>
     <string name="unite">Unit</string>
     <string name="general">General</string>
+    <string name="parametres">Settings</string>
 
     <!-- Sync Preferences -->
 </resources>
