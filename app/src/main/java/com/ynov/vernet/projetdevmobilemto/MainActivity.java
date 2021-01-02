@@ -1,6 +1,8 @@
 package com.ynov.vernet.projetdevmobilemto;
 
 import android.Manifest;
+import android.app.PendingIntent;
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Débug
     private static final String TAG = "MainActivity";
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,7 +220,8 @@ public class MainActivity extends AppCompatActivity {
                     url = "https://www.prevision-meteo.ch/services/json/" + ville;
 
                     // Mettre à jour le widget
-
+                    RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
+                    views.setTextViewText(R.id.widgetTemperature, "Coucou tobby");
 
                     // Stocker la ville dans la mémoire
                     SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);

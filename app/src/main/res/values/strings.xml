@@ -37,4 +37,6 @@
     <string name="quitter">Leave</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="widget_ville">City widget</string>
+    <string name="widget_temperature">Temperature widget</string>
 </resources>

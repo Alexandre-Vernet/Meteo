@@ -1,34 +1,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:theme="@style/ThemeOverlay.ProjetDevMobileMétéo.AppWidgetContainer"
-    android:background="?attr/appWidgetBackgroundColor"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
-    android:padding="@dimen/widget_margin" >
+    android:orientation="vertical"
+    android:padding="@dimen/widget_margin"
+    android:theme="@style/ThemeOverlay.ProjetDevMobileMétéo.AppWidgetContainer">
 
     <TextView
+        android:id="@+id/widgetVille"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?attr/appWidgetBackgroundColor"
-        android:textColor="?attr/appWidgetTextColor"
-        android:textSize="24sp"
-        android:textStyle="bold|italic"
         android:layout_margin="8dp"
-        android:contentDescription="@string/appwidget_text"
-        android:text="Castelginest" />
+        android:contentDescription="@string/widget_ville"
+        android:text="Toulouse"
+        android:textColor="@color/white"
+        android:textSize="50sp"
+        android:textStyle="italic" />
 
     <TextView
-        android:id="@+id/appwidget_text"
+        android:id="@+id/widgetTemperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?attr/appWidgetBackgroundColor"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/widget_temperature"
         android:text="20°C"
-        android:textColor="?attr/appWidgetTextColor"
-        android:textSize="24sp"
-        android:textStyle="bold|italic"
-        android:layout_margin="8dp"
-        android:contentDescription="@string/appwidget_text" />
+        android:textColor="@color/white"
+        android:textSize="68sp"
+        android:textStyle="bold|italic" />
 
 
 </LinearLayout>
