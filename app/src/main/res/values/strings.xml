@@ -12,9 +12,9 @@
     <string name="lever_soleil">Sunset</string>
     <string name="coucher_soleil">Sunrise</string>
     <string name="saisir_ville">Enter a city</string>
-    <string name="tmp">%1$S °C</string>
-    <string name="TMin">TMin : %1$S °C</string>
-    <string name="TMax">TMax : %1$d °C</string>
+    <string name="tmp_C">%1$S °C</string>
+    <string name="TMin_C">TMin : %1$S °C</string>
+    <string name="TMax_C">TMax : %1$d °C</string>
     <string name="temperatures">Temperatures</string>
     <string name="error">Error</string>
     <string name="pas_fonctionne">Sorry, it\' s doesn\'t work</string>
@@ -54,6 +54,10 @@
     <string name="parametres">Settings</string>
     <string name="pas_internet">No internet connection</string>
     <string name="format_24h">24h format</string>
+    <string name="tmp_F">%1$d °F</string>
+    <string name="T_Min_F">TMin : %1$d °F</string>
+    <string name="T_Max_F">TMax : %1$d °F</string>
+    <string name="erreur_conversion_unite">Error in unit convert</string>
 
     <!-- Sync Preferences -->
 </resources>

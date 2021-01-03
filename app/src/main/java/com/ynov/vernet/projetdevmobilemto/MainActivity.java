@@ -30,6 +30,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.ViewCompat;
+import androidx.preference.PreferenceManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -327,8 +328,6 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject fcst_day_0 = jsonObject.getJSONObject("fcst_day_0");
                         String[] day_long = new String[7];
                         int[] tmax = new int[7];
-
-
                         day_long[0] = fcst_day_0.getString("day_long");
                         String tmin = fcst_day_0.getString("tmin");
                         tmax[0] = fcst_day_0.getInt("tmax");
@@ -366,10 +365,43 @@ public class MainActivity extends AppCompatActivity {
                         Picasso.get().load(icone).into(imageViewIcone);
                         textViewVille.setText(ville);
                         textViewJour.setText(day_long[0]);
-                        textViewTemperature.setText(getString(R.string.tmp, tmp));
+
+                        // Récupérer l'unité de mesure
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                        String unite = prefs.getString("unite", null);
+
+                        if (unite.equals("°C")) {
+                            textViewTemperature.setText(getString(R.string.tmp_C, tmp));
+                            textViewTMin.setText(getString(R.string.TMin_C, tmin));
+                            textViewTMax.setText(getString(R.string.TMax_C, tmax[0]));
+                        } else if (unite.equals("°F")) {
+                            // tmp
+                            int tmpInt = Integer.parseInt(tmp);
+                            tmpInt = (tmpInt * 9 / 5) + 32;
+                            textViewTemperature.setText(getString(R.string.tmp_F, tmpInt));
+
+                            // tmin
+                            int tminInt = Integer.parseInt(tmin);
+                            tminInt = (tminInt * 9 / 5) + 32;
+                            textViewTMin.setText(getString(R.string.tmp_F, tminInt));
+
+                            // tmax
+                            int tmaxInt = tmax[0];
+                            tmaxInt = (tmaxInt * 9 / 5) + 32;
+                            textViewTMax.setText(getString(R.string.tmp_F, tmaxInt));
+
+                        } else {
+                            AlertDialog alertDialog = new AlertDialog.Builder(this)
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setTitle(getString(R.string.error))
+                                    .setMessage(R.string.erreur_conversion_unite)
+                                    .setPositiveButton("Ok", null)
+                                    .show();
+                            alertDialog.setCanceledOnTouchOutside(false);
+                        }
+
+
                         textViewCondition.setText(condition);
-                        textViewTMin.setText(getString(R.string.TMin, tmin));
-                        textViewTMax.setText(getString(R.string.TMax, tmax[0]));
                         textViewHumidite.setText(getString(R.string.humidite2, humidite) + " %");
                         textViewLeverSoleil.setText(leveSoleil);
                         textViewCoucherSoleil.setText(coucheSoleil);
@@ -378,8 +410,26 @@ public class MainActivity extends AppCompatActivity {
                         // Afficher les prévisions dans un graphique
                         BarChart barChart = findViewById(R.id.barChart);
                         ArrayList<BarEntry> temperature = new ArrayList<>();
-                        for (int i = 0; i <= 4; i++)
-                            temperature.add(new BarEntry(i, tmax[i]));
+
+                        for (int i = 0; i <= 4; i++) {
+                            if (unite.equals("°C")) {
+                                temperature.add(new BarEntry(i, tmax[i]));
+
+                            } else if (unite.equals("°F")) {
+                                // tmp
+                                tmax[i] = (tmax[i] * 9 / 5) + 32;
+                                temperature.add(new BarEntry(i, tmax[i]));
+                            } else {
+                            AlertDialog alertDialog = new AlertDialog.Builder(this)
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .setTitle(getString(R.string.error))
+                                    .setMessage(R.string.erreur_conversion_unite)
+                                    .setPositiveButton("Ok", null)
+                                    .show();
+                            alertDialog.setCanceledOnTouchOutside(false);
+                        }
+
+                    }
 
                         BarDataSet barDataSet = new BarDataSet(temperature, getString(R.string.temperatures));
                         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
