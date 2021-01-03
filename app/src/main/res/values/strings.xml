@@ -52,6 +52,7 @@
     <string name="unite">Unit</string>
     <string name="general">General</string>
     <string name="parametres">Settings</string>
+    <string name="pas_internet">No internet connection</string>
 
     <!-- Sync Preferences -->
 </resources>

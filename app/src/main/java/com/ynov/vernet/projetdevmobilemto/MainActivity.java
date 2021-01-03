@@ -1,8 +1,6 @@
 package com.ynov.vernet.projetdevmobilemto;
 
 import android.Manifest;
-import android.app.PendingIntent;
-import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,8 +10,11 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
@@ -31,7 +32,6 @@ import androidx.core.view.ViewCompat;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -48,6 +48,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -92,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         textViewJour = findViewById(R.id.textViewJour);
 
 
-
         // Floating Action Button
         fab = findViewById(R.id.fab);
         villeFab = findViewById(R.id.villeFab);
@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         fab.shrink();
 
+        // Dérouler le menu
         fab.setOnClickListener(
                 view -> {
                     if (!isAllFabsVisible) {
@@ -140,17 +141,42 @@ public class MainActivity extends AppCompatActivity {
         // Récupérer la localisation de l'emplacement du téléphone
         localisationFab.setOnClickListener(
                 view -> {
-                    recupLocalisation = true;
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
 
-                    // Masquer le menu
-                    ViewCompat.animate(fab)
-                            .rotation(0.0F)
-                            .withLayer()
-                            .setDuration(300L)
-                            .setInterpolator(new OvershootInterpolator(10.0F))
-                            .start();
-                    isAllFabsVisible = false;
+                    // Si il y a une connexion Internet
+                    ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                    if (Objects.requireNonNull(Objects.requireNonNull(connectivityManager).getNetworkInfo(ConnectivityManager.TYPE_MOBILE)).getState() == NetworkInfo.State.CONNECTED || Objects.requireNonNull(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)).getState() == NetworkInfo.State.CONNECTED) {
+
+                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                        recupLocalisation = true;
+                    } else {
+
+                        // Masquer le menu
+                        if (!isAllFabsVisible) {
+                            ViewCompat.animate(fab)
+                                    .rotation(135.0F)
+                                    .withLayer()
+                                    .setDuration(300L)
+                                    .setInterpolator(new OvershootInterpolator(10.0F))
+                                    .start();
+                            villeFab.show();
+                            localisationFab.show();
+                            parametreFab.show();
+                            fab.extend();
+                            isAllFabsVisible = true;
+                        } else {
+                            ViewCompat.animate(fab)
+                                    .rotation(0.0F)
+                                    .withLayer()
+                                    .setDuration(300L)
+                                    .setInterpolator(new OvershootInterpolator(10.0F))
+                                    .start();
+                            villeFab.hide();
+                            localisationFab.hide();
+                            parametreFab.hide();
+                            fab.shrink();
+                            isAllFabsVisible = false;
+                        }
+                    }
                 });
 
 
@@ -167,8 +193,18 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
 
-        // Demander la permission LOCALISATION
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        // Vérifier la connexion Internet
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (Objects.requireNonNull(Objects.requireNonNull(connectivityManager).getNetworkInfo(ConnectivityManager.TYPE_MOBILE)).getState() == NetworkInfo.State.CONNECTED || Objects.requireNonNull(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)).getState() == NetworkInfo.State.CONNECTED) {
+            Log.d(TAG, "onCreate: Internet disponible");
+            // Demander la permission LOCALISATION
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        } else {
+            Log.d(TAG, "onCreate: Internet indisponible");
+            Snackbar.make(findViewById(R.id.fab), getString(R.string.pas_internet), Snackbar.LENGTH_LONG)
+                    .setAction(getString(R.string.activer), v -> startActivity(new Intent(Settings.ACTION_WIRELESS_SETTINGS)))
+                    .show();
+        }
     }
 
     @Override
