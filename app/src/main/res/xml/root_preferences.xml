@@ -9,6 +9,11 @@
             app:key="unite"
             app:title="@string/unite"
             app:useSimpleSummaryProvider="true" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="format"
+            android:title="@string/format_24h" />
     </PreferenceCategory>
 
 

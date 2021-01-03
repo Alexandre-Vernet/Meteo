@@ -53,6 +53,7 @@
     <string name="general">General</string>
     <string name="parametres">Settings</string>
     <string name="pas_internet">No internet connection</string>
+    <string name="format_24h">24h format</string>
 
     <!-- Sync Preferences -->
 </resources>

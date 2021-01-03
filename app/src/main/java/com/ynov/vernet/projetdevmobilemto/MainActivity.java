@@ -1,6 +1,8 @@
 package com.ynov.vernet.projetdevmobilemto;
 
 import android.Manifest;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -251,9 +253,6 @@ public class MainActivity extends AppCompatActivity {
                     ville = addresses.get(0).getLocality();
                     url = "https://www.prevision-meteo.ch/services/json/" + ville;
 
-                    // Mettre à jour le widget
-                    RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
-                    views.setTextViewText(R.id.widgetTemperature, "Coucou tobby");
 
                     // Stocker la ville dans la mémoire
                     SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
@@ -301,6 +300,7 @@ public class MainActivity extends AppCompatActivity {
         // Bouton récupérer la localisation
         if (recupLocalisation)
             url = "https://www.prevision-meteo.ch/services/json/" + ville;
+
 
         RequestQueue queue = com.android.volley.toolbox.Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -352,6 +352,15 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject fcst_day_4 = jsonObject.getJSONObject("fcst_day_4");
                         day_long[4] = fcst_day_4.getString("day_long");
                         tmax[4] = fcst_day_4.getInt("tmax");
+
+                        // Mettre à jour le widget
+                        Context context = this;
+                        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+                        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+                        ComponentName thisWidget = new ComponentName(context, Widget.class);
+                        remoteViews.setTextViewText(R.id.widgetVille, ville);
+                        remoteViews.setTextViewText(R.id.widgetTemperature, tmp + " °C");
+                        appWidgetManager.updateAppWidget(thisWidget, remoteViews);
 
                         // Afficher les données du jour
                         Picasso.get().load(icone).into(imageViewIcone);
@@ -406,6 +415,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Ajouter la requête à la RequestQueue.
         queue.add(stringRequest);
+
 
     }
 

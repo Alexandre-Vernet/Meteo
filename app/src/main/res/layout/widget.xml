@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:contentDescription="@string/widget_ville"
-        android:text="Toulouse"
         android:textColor="@color/white"
         android:textSize="50sp"
         android:textStyle="italic" />
@@ -23,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:contentDescription="@string/widget_temperature"
-        android:text="20°C"
         android:textColor="@color/white"
         android:textSize="68sp"
         android:textStyle="bold|italic" />
