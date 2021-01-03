@@ -19,7 +19,7 @@
     <string name="error">Error</string>
     <string name="pas_fonctionne">Sorry, it\' s doesn\'t work</string>
     <string name="humidite2">Humidity : %1$S</string>
-    <string name="vent2">Wind : %1$S km / h</string>
+    <string name="vent_KMH">Wind : %1$S km / h</string>
     <string name="meteo_semaine">Weather forecast for the week</string>
     <string name="ville_non_trouvee">The entered city was not found</string>
     <string name="ok">Ok</string>
@@ -35,11 +35,8 @@
     <string name="oui">Yes</string>
     <string name="non">No</string>
     <string name="quitter">Leave</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
     <string name="widget_ville">City widget</string>
     <string name="widget_temperature">Temperature widget</string>
-    <string name="title_activity_parametres">ParametresActivity</string>
 
     <!-- Preference Titles -->
 
@@ -49,7 +46,6 @@
     <string name="developpeurs">Developers</string>
     <string name="developpe_par">Developped by Alexandre Vernet and Valentin Arpin</string>
     <string name="version">Version</string>
-    <string name="unite">Unit</string>
     <string name="general">General</string>
     <string name="parametres">Settings</string>
     <string name="pas_internet">No internet connection</string>
@@ -58,6 +54,9 @@
     <string name="T_Min_F">TMin : %1$d °F</string>
     <string name="T_Max_F">TMax : %1$d °F</string>
     <string name="erreur_conversion_unite">Error in unit convert</string>
+    <string name="vent_MS">Wind : %1$S m / s</string>
+    <string name="vent_MPH">Wind : %1$S mph</string>
+    <string name="vent_KTS">Wind : %1$S kts</string>
 
     <!-- Sync Preferences -->
 </resources>

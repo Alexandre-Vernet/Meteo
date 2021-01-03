@@ -3,11 +3,17 @@
 
     <PreferenceCategory app:title="@string/general">
         <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
+            app:entries="@array/temperature"
+            app:entryValues="@array/temperature"
             app:key="unite"
-            app:title="@string/unite"
+            app:title="@string/temperature"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:entries="@array/vent"
+            app:entryValues="@array/vent"
+            app:key="vent"
+            app:title="@string/vent"
             app:useSimpleSummaryProvider="true" />
 
         <SwitchPreference

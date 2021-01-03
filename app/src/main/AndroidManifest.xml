@@ -14,9 +14,6 @@
         android:roundIcon="@drawable/icone"
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjetDevMobileMétéo">
-        <activity
-            android:name=".ParametresActivity"
-            android:label="@string/title_activity_parametres"></activity>
 
         <receiver android:name=".Widget">
             <intent-filter>
@@ -28,9 +25,12 @@
                 android:resource="@xml/widget_info" />
         </receiver>
 
+        <activity android:name=".ParametresActivity" />
+
         <activity
             android:name=".VilleActivity"
             android:windowSoftInputMode="adjustResize" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -48,6 +48,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -368,13 +369,13 @@ public class MainActivity extends AppCompatActivity {
 
                         // Récupérer l'unité de mesure
                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-                        String unite = prefs.getString("unite", null);
+                        String prefUnite = prefs.getString("unite", null);
 
-                        if (unite.equals("°C")) {
+                        if (prefUnite.equals("°C")) {
                             textViewTemperature.setText(getString(R.string.tmp_C, tmp));
                             textViewTMin.setText(getString(R.string.TMin_C, tmin));
                             textViewTMax.setText(getString(R.string.TMax_C, tmax[0]));
-                        } else if (unite.equals("°F")) {
+                        } else if (prefUnite.equals("°F")) {
                             // tmp
                             int tmpInt = Integer.parseInt(tmp);
                             tmpInt = (tmpInt * 9 / 5) + 32;
@@ -405,21 +406,46 @@ public class MainActivity extends AppCompatActivity {
                         textViewHumidite.setText(getString(R.string.humidite2, humidite) + " %");
                         textViewLeverSoleil.setText(leveSoleil);
                         textViewCoucherSoleil.setText(coucheSoleil);
-                        textViewVent.setText(getString(R.string.vent2, vent));
 
-                        // Afficher les prévisions dans un graphique
-                        BarChart barChart = findViewById(R.id.barChart);
-                        ArrayList<BarEntry> temperature = new ArrayList<>();
+                        String prefVent = prefs.getString("vent", null);
 
-                        for (int i = 0; i <= 4; i++) {
-                            if (unite.equals("°C")) {
-                                temperature.add(new BarEntry(i, tmax[i]));
+                        // km /h
+                        if (prefVent.equals("km/h")) {
+                            textViewVent.setText(getString(R.string.vent_KMH, vent));
 
-                            } else if (unite.equals("°F")) {
-                                // tmp
-                                tmax[i] = (tmax[i] * 9 / 5) + 32;
-                                temperature.add(new BarEntry(i, tmax[i]));
-                            } else {
+                            // m / s
+                        } else if (prefVent.equals("m/s")) {
+                            double ventDouble = Double.parseDouble(vent);
+                            Log.d(TAG, "vent: " + ventDouble);
+                            ventDouble = ventDouble / 3.6;
+                            ventDouble = Math.round(ventDouble * 10) / 10.0;
+                            DecimalFormat df = new DecimalFormat("#.##");
+                            textViewVent.setText(getString(R.string.vent_MS, df.format(ventDouble)));
+                        }
+
+
+                        // mph
+                        else if (prefVent.equals("mph")) {
+                            double ventDouble = Double.parseDouble(vent);
+                            Log.d(TAG, "vent: " + ventDouble);
+                            ventDouble = ventDouble / 1.609;
+                            ventDouble = Math.round(ventDouble * 10) / 10.0;
+                            DecimalFormat df = new DecimalFormat("#.##");
+                            textViewVent.setText(getString(R.string.vent_MPH, df.format(ventDouble)));
+                        }
+
+
+                        // kts
+                        else if (prefVent.equals("kts")) {
+                            double ventDouble = Double.parseDouble(vent);
+                            Log.d(TAG, "vent: " + ventDouble);
+                            ventDouble = ventDouble / 1.852;
+                            ventDouble = Math.round(ventDouble * 10) / 10.0;
+                            DecimalFormat df = new DecimalFormat("#.##");
+                            textViewVent.setText(getString(R.string.vent_KTS, df.format(ventDouble)));
+
+
+                        } else {
                             AlertDialog alertDialog = new AlertDialog.Builder(this)
                                     .setIcon(android.R.drawable.ic_dialog_alert)
                                     .setTitle(getString(R.string.error))
@@ -427,9 +453,33 @@ public class MainActivity extends AppCompatActivity {
                                     .setPositiveButton("Ok", null)
                                     .show();
                             alertDialog.setCanceledOnTouchOutside(false);
+
                         }
 
-                    }
+
+                        // Afficher les prévisions dans un graphique
+                        BarChart barChart = findViewById(R.id.barChart);
+                        ArrayList<BarEntry> temperature = new ArrayList<>();
+
+                        for (int i = 0; i <= 4; i++) {
+                            if (prefUnite.equals("°C")) {
+                                temperature.add(new BarEntry(i, tmax[i]));
+
+                            } else if (prefUnite.equals("°F")) {
+                                // tmp
+                                tmax[i] = (tmax[i] * 9 / 5) + 32;
+                                temperature.add(new BarEntry(i, tmax[i]));
+                            } else {
+                                AlertDialog alertDialog = new AlertDialog.Builder(this)
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setTitle(getString(R.string.error))
+                                        .setMessage(R.string.erreur_conversion_unite)
+                                        .setPositiveButton("Ok", null)
+                                        .show();
+                                alertDialog.setCanceledOnTouchOutside(false);
+                            }
+
+                        }
 
                         BarDataSet barDataSet = new BarDataSet(temperature, getString(R.string.temperatures));
                         barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);

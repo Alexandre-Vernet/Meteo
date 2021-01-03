@@ -20,7 +20,7 @@
     <string name="TMax_C">TMax : %1$d °C</string>
     <string name="TMin_C">TMin : %1$S °C</string>
     <string name="humidite2">Humidité : %1$S</string>
-    <string name="vent2">Vent : %1$S km / h</string>
+    <string name="vent_KMH">Vent : %1$S km / h</string>
     <string name="ville_non_trouvee">Prévisions météo pour la semaine</string>
     <string name="ok">Ok</string>
     <string name="entrez_ville">Entrez une ville</string>
@@ -37,7 +37,6 @@
     <string name="quitter">Quitter</string>
     <string name="meteo_semaine">" Prévisions météo pour la semaine"</string>
     <string name="reply_title">Valeur</string>
-    <string name="unite">Unité</string>
     <string name="a_propos">A propos</string>
     <string name="developpeurs">Développeurs</string>
     <string name="developpe_par">Développé par Alexandre Vernet et Valentin Arpin</string>
@@ -50,4 +49,9 @@
     <string name="T_Min_F">TMin : %1$d °F</string>
     <string name="T_Max_F">TMax : %1$d °F</string>
     <string name="erreur_conversion_unite">Erreur dans la converstion des unités</string>
+    <string name="vent_MS">Vent  : %1$S m / s</string>
+    <string name="vent_MPH">Vent : %1$S mph</string>
+    <string name="vent_KTS">Vent : %1$S nœud</string>
+    <string name="widget_ville">Widget ville</string>
+    <string name="widget_temperature">Widget température</string>
 </resources>
