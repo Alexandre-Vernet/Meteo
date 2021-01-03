@@ -419,18 +419,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(R.string.quitter)
                 .setMessage(R.string.voulez_vous_vraiment_quitter)
                 .setPositiveButton(R.string.oui, (dialogInterface, i) -> {
+                    super.onBackPressed();
+                    finish();
                 })
-                .setNegativeButton(R.string.non, (dialogInterface, i) -> {
-                })
+                .setNegativeButton(R.string.non, null)
                 .show();
         alertDialog.setCanceledOnTouchOutside(false);
     }
