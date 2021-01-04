@@ -48,7 +48,6 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -75,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Débug
     private static final String TAG = "MainActivity";
-    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,13 +94,11 @@ public class MainActivity extends AppCompatActivity {
         textViewVent = findViewById(R.id.textViewVent);
         textViewJour = findViewById(R.id.textViewJour);
 
-
         // Floating Action Button
         fab = findViewById(R.id.fab);
         villeFab = findViewById(R.id.villeFab);
         localisationFab = findViewById(R.id.localisationFab);
         parametreFab = findViewById(R.id.parametreFab);
-
 
         villeFab.setVisibility(View.GONE);
         localisationFab.setVisibility(View.GONE);
@@ -407,55 +403,24 @@ public class MainActivity extends AppCompatActivity {
                         textViewLeverSoleil.setText(leveSoleil);
                         textViewCoucherSoleil.setText(coucheSoleil);
 
+
+                        // Convertir l'unité suivant les préférences
                         String prefVent = prefs.getString("vent", null);
-
-                        // km /h
-                        if (prefVent.equals("km/h")) {
-                            textViewVent.setText(getString(R.string.vent_KMH, vent));
-
-                            // m / s
-                        } else if (prefVent.equals("m/s")) {
-                            double ventDouble = Double.parseDouble(vent);
-                            Log.d(TAG, "vent: " + ventDouble);
-                            ventDouble = ventDouble / 3.6;
-                            ventDouble = Math.round(ventDouble * 10) / 10.0;
-                            DecimalFormat df = new DecimalFormat("#.##");
-                            textViewVent.setText(getString(R.string.vent_MS, df.format(ventDouble)));
+                        Conversion conversion = new Conversion();
+                        switch (prefVent) {
+                            case "km/h":
+                                textViewVent.setText(getString(R.string.vent_KMH, conversion.convertir(prefVent, vent)));
+                                break;
+                            case "m/s":
+                                textViewVent.setText(getString(R.string.vent_MS, conversion.convertir(prefVent, vent)));
+                                break;
+                            case "mph":
+                                textViewVent.setText(getString(R.string.vent_MPH, conversion.convertir(prefVent, vent)));
+                                break;
+                            case "kts":
+                                textViewVent.setText(getString(R.string.vent_KTS, conversion.convertir(prefVent, vent)));
+                                break;
                         }
-
-
-                        // mph
-                        else if (prefVent.equals("mph")) {
-                            double ventDouble = Double.parseDouble(vent);
-                            Log.d(TAG, "vent: " + ventDouble);
-                            ventDouble = ventDouble / 1.609;
-                            ventDouble = Math.round(ventDouble * 10) / 10.0;
-                            DecimalFormat df = new DecimalFormat("#.##");
-                            textViewVent.setText(getString(R.string.vent_MPH, df.format(ventDouble)));
-                        }
-
-
-                        // kts
-                        else if (prefVent.equals("kts")) {
-                            double ventDouble = Double.parseDouble(vent);
-                            Log.d(TAG, "vent: " + ventDouble);
-                            ventDouble = ventDouble / 1.852;
-                            ventDouble = Math.round(ventDouble * 10) / 10.0;
-                            DecimalFormat df = new DecimalFormat("#.##");
-                            textViewVent.setText(getString(R.string.vent_KTS, df.format(ventDouble)));
-
-
-                        } else {
-                            AlertDialog alertDialog = new AlertDialog.Builder(this)
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .setTitle(getString(R.string.error))
-                                    .setMessage(R.string.erreur_conversion_unite)
-                                    .setPositiveButton("Ok", null)
-                                    .show();
-                            alertDialog.setCanceledOnTouchOutside(false);
-
-                        }
-
 
                         // Afficher les prévisions dans un graphique
                         BarChart barChart = findViewById(R.id.barChart);
@@ -478,7 +443,6 @@ public class MainActivity extends AppCompatActivity {
                                         .show();
                                 alertDialog.setCanceledOnTouchOutside(false);
                             }
-
                         }
 
                         BarDataSet barDataSet = new BarDataSet(temperature, getString(R.string.temperatures));
@@ -515,8 +479,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Ajouter la requête à la RequestQueue.
         queue.add(stringRequest);
-
-
     }
 
     @Override
