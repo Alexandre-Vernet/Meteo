@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:contentDescription="@string/widget_ville"
-        android:textColor="@color/white"
+        android:textColor="@color/orange"
         android:textSize="50sp"
         android:textStyle="italic" />
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:contentDescription="@string/widget_temperature"
-        android:textColor="@color/white"
+        android:textColor="@color/orange"
         android:textSize="68sp"
         android:textStyle="bold|italic" />
 
