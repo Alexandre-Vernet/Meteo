@@ -10,4 +10,15 @@
             android:targetClass="com.ynov.vernet.projetdevmobilemto.VilleActivity"
             android:targetPackage="com.ynov.vernet.projetdevmobilemto" />
     </shortcut>
+
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:shortcutId="parametres"
+        android:shortcutShortLabel="@string/parametres">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.ynov.vernet.projetdevmobilemto.ParametresActivity"
+            android:targetPackage="com.ynov.vernet.projetdevmobilemto" />
+    </shortcut>
 </shortcuts>
