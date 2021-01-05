@@ -60,10 +60,6 @@ public class MainActivity extends AppCompatActivity {
     TextView textViewVille, textViewJour, textViewTemperature, textViewCondition, textViewTMin, textViewTMax, textViewHumidite,
             textViewLeverSoleil, textViewCoucherSoleil, textViewVent;
 
-    // Floating Action Button
-    ExtendedFloatingActionButton fab;
-    FloatingActionButton villeFab, localisationFab, parametreFab;
-    Boolean isAllFabsVisible;
 
     // GPS
     Location gps_loc = null, network_loc = null;
@@ -94,104 +90,8 @@ public class MainActivity extends AppCompatActivity {
         textViewVent = findViewById(R.id.textViewVent);
         textViewJour = findViewById(R.id.textViewJour);
 
-        // Floating Action Button
-        fab = findViewById(R.id.fab);
-        villeFab = findViewById(R.id.villeFab);
-        localisationFab = findViewById(R.id.localisationFab);
-        parametreFab = findViewById(R.id.parametreFab);
-
-        villeFab.setVisibility(View.GONE);
-        localisationFab.setVisibility(View.GONE);
-        parametreFab.setVisibility(View.GONE);
-
-        isAllFabsVisible = false;
-
-        fab.shrink();
-
-        // Dérouler le menu
-        fab.setOnClickListener(
-                view -> {
-                    if (!isAllFabsVisible) {
-                        ViewCompat.animate(fab)
-                                .rotation(135.0F)
-                                .withLayer()
-                                .setDuration(300L)
-                                .setInterpolator(new OvershootInterpolator(10.0F))
-                                .start();
-                        villeFab.show();
-                        localisationFab.show();
-                        parametreFab.show();
-                        fab.extend();
-                        isAllFabsVisible = true;
-                    } else {
-                        ViewCompat.animate(fab)
-                                .rotation(0.0F)
-                                .withLayer()
-                                .setDuration(300L)
-                                .setInterpolator(new OvershootInterpolator(10.0F))
-                                .start();
-                        villeFab.hide();
-                        localisationFab.hide();
-                        parametreFab.hide();
-                        fab.shrink();
-                        isAllFabsVisible = false;
-                    }
-                });
-
-        // Récupérer la localisation de l'emplacement du téléphone
-        localisationFab.setOnClickListener(
-                view -> {
-
-                    // Si il y a une connexion Internet
-                    ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-                    if (Objects.requireNonNull(Objects.requireNonNull(connectivityManager).getNetworkInfo(ConnectivityManager.TYPE_MOBILE)).getState() == NetworkInfo.State.CONNECTED || Objects.requireNonNull(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)).getState() == NetworkInfo.State.CONNECTED) {
-
-                        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-                        recupLocalisation = true;
-                    } else {
-
-                        // Masquer le menu
-                        if (!isAllFabsVisible) {
-                            ViewCompat.animate(fab)
-                                    .rotation(135.0F)
-                                    .withLayer()
-                                    .setDuration(300L)
-                                    .setInterpolator(new OvershootInterpolator(10.0F))
-                                    .start();
-                            villeFab.show();
-                            localisationFab.show();
-                            parametreFab.show();
-                            fab.extend();
-                            isAllFabsVisible = true;
-                        } else {
-                            ViewCompat.animate(fab)
-                                    .rotation(0.0F)
-                                    .withLayer()
-                                    .setDuration(300L)
-                                    .setInterpolator(new OvershootInterpolator(10.0F))
-                                    .start();
-                            villeFab.hide();
-                            localisationFab.hide();
-                            parametreFab.hide();
-                            fab.shrink();
-                            isAllFabsVisible = false;
-                        }
-                    }
-                });
-
-
-        // Saisir une ville manuellement
-        villeFab.setOnClickListener(
-                view -> {
-                    startActivity(new Intent(getApplicationContext(), VilleActivity.class));
-                    finish();
-                });
-
-        // Paramètres
-        parametreFab.setOnClickListener(v -> {
-            startActivity(new Intent(getApplicationContext(), ParametresActivity.class));
-            finish();
-        });
+        // Gérer le menu
+        new Menu(this, this);
 
         // Vérifier la connexion Internet
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -367,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                         String prefUnite = prefs.getString("unite", null);
 
+                        assert prefUnite != null;
                         if (prefUnite.equals("°C")) {
                             textViewTemperature.setText(getString(R.string.tmp_C, tmp));
                             textViewTMin.setText(getString(R.string.TMin_C, tmin));
