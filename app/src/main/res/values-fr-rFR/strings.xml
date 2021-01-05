@@ -17,7 +17,7 @@
     <string name="pas_fonctionne">Désolé, ça n\'a pas fonctionné</string>
     <string name="error">Erreur</string>
     <string name="temperatures">Températures</string>
-    <string name="TMax_C">TMax : %1$d °C</string>
+    <string name="TMax_C">TMax : %1$S °C</string>
     <string name="TMin_C">TMin : %1$S °C</string>
     <string name="humidite2">Humidité : %1$S</string>
     <string name="vent_KMH">Vent : %1$S km / h</string>
@@ -45,9 +45,9 @@
     <string name="parametres">Paramètres</string>
     <string name="pas_internet">Aucune connexion internet</string>
     <string name="format_24h">format 24h</string>
-    <string name="tmp_F">%1$d °F</string>
-    <string name="T_Min_F">TMin : %1$d °F</string>
-    <string name="T_Max_F">TMax : %1$d °F</string>
+    <string name="tmp_F">%1$S°F</string>
+    <string name="T_Min_F">TMin : %1$dS°F</string>
+    <string name="T_Max_F">TMax : %1$S °F</string>
     <string name="erreur_conversion_unite">Erreur dans la converstion des unités</string>
     <string name="vent_MS">Vent  : %1$S m / s</string>
     <string name="vent_MPH">Vent : %1$S mph</string>

@@ -17,8 +17,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
-import android.view.animation.OvershootInterpolator;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
@@ -29,7 +27,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.view.ViewCompat;
 import androidx.preference.PreferenceManager;
 
 import com.android.volley.Request;
@@ -40,8 +37,6 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
 
@@ -60,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     TextView textViewVille, textViewJour, textViewTemperature, textViewCondition, textViewTMin, textViewTMax, textViewHumidite,
             textViewLeverSoleil, textViewCoucherSoleil, textViewVent;
 
+    // Graphique
+    BarChart graph;
 
     // GPS
     Location gps_loc = null, network_loc = null;
@@ -76,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Références
+        // Widgets
         imageViewIcone = findViewById(R.id.imageViewIcone);
         editTextVille = findViewById(R.id.editTextVille);
         textViewVille = findViewById(R.id.textViewVille);
@@ -89,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
         textViewCoucherSoleil = findViewById(R.id.textViewCoucherSoleil);
         textViewVent = findViewById(R.id.textViewVent);
         textViewJour = findViewById(R.id.textViewJour);
+
+        // Graphique
+        graph = findViewById(R.id.barChart);
 
         // Gérer le menu
         new Menu(this, this);
@@ -224,30 +224,31 @@ public class MainActivity extends AppCompatActivity {
                         // fcst_day_0
                         JSONObject fcst_day_0 = jsonObject.getJSONObject("fcst_day_0");
                         String[] day_long = new String[7];
-                        int[] tmax = new int[7];
+                        int[] tmaxPrevision = new int[7];
                         day_long[0] = fcst_day_0.getString("day_long");
+                        tmaxPrevision[0] = fcst_day_0.getInt("tmax");
                         String tmin = fcst_day_0.getString("tmin");
-                        tmax[0] = fcst_day_0.getInt("tmax");
+                        String tmax = fcst_day_0.getString("tmax");
 
                         // fcst_day_1
                         JSONObject fcst_day_1 = jsonObject.getJSONObject("fcst_day_1");
                         day_long[1] = fcst_day_1.getString("day_long");
-                        tmax[1] = fcst_day_1.getInt("tmax");
+                        tmaxPrevision[1] = fcst_day_1.getInt("tmax");
 
                         // fcst_day_2
                         JSONObject fcst_day_2 = jsonObject.getJSONObject("fcst_day_2");
                         day_long[2] = fcst_day_2.getString("day_long");
-                        tmax[2] = fcst_day_2.getInt("tmax");
+                        tmaxPrevision[2] = fcst_day_2.getInt("tmax");
 
                         // fcst_day_3
                         JSONObject fcst_day_3 = jsonObject.getJSONObject("fcst_day_3");
                         day_long[3] = fcst_day_3.getString("day_long");
-                        tmax[3] = fcst_day_3.getInt("tmax");
+                        tmaxPrevision[3] = fcst_day_3.getInt("tmax");
 
                         // fcst_day_4
                         JSONObject fcst_day_4 = jsonObject.getJSONObject("fcst_day_4");
                         day_long[4] = fcst_day_4.getString("day_long");
-                        tmax[4] = fcst_day_4.getInt("tmax");
+                        tmaxPrevision[4] = fcst_day_4.getInt("tmax");
 
                         // Mettre à jour le widget
                         Context context = this;
@@ -263,84 +264,45 @@ public class MainActivity extends AppCompatActivity {
                         textViewVille.setText(ville);
                         textViewJour.setText(day_long[0]);
 
-                        // Récupérer l'unité de mesure
+                        Conversion conversion = new Conversion();
                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-                        String prefUnite = prefs.getString("unite", null);
 
-                        assert prefUnite != null;
-                        if (prefUnite.equals("°C")) {
-                            textViewTemperature.setText(getString(R.string.tmp_C, tmp));
-                            textViewTMin.setText(getString(R.string.TMin_C, tmin));
-                            textViewTMax.setText(getString(R.string.TMax_C, tmax[0]));
-                        } else if (prefUnite.equals("°F")) {
-                            // tmp
-                            int tmpInt = Integer.parseInt(tmp);
-                            tmpInt = (tmpInt * 9 / 5) + 32;
-                            textViewTemperature.setText(getString(R.string.tmp_F, tmpInt));
+                        // Récupérer l'unité de mesure de la température
+                        String prefTemperature = prefs.getString("temperature", null);
 
-                            // tmin
-                            int tminInt = Integer.parseInt(tmin);
-                            tminInt = (tminInt * 9 / 5) + 32;
-                            textViewTMin.setText(getString(R.string.tmp_F, tminInt));
+                        // Récupérer l'unité de mesure de la vitesse du vent
+                        String prefVent = prefs.getString("vent", null);
 
-                            // tmax
-                            int tmaxInt = tmax[0];
-                            tmaxInt = (tmaxInt * 9 / 5) + 32;
-                            textViewTMax.setText(getString(R.string.tmp_F, tmaxInt));
-
-                        } else {
-                            AlertDialog alertDialog = new AlertDialog.Builder(this)
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .setTitle(getString(R.string.error))
-                                    .setMessage(R.string.erreur_conversion_unite)
-                                    .setPositiveButton("Ok", null)
-                                    .show();
-                            alertDialog.setCanceledOnTouchOutside(false);
-                        }
-
-
+                        // Afficher les données converties
+                        textViewTemperature.setText(conversion.convertirTemperature(prefTemperature, tmp));
+                        textViewTMin.setText(conversion.convertirTemperature(prefTemperature, tmin));
+                        textViewTMax.setText(conversion.convertirTemperature(prefTemperature, tmax));
                         textViewCondition.setText(condition);
-                        textViewHumidite.setText(getString(R.string.humidite2, humidite) + " %");
+                        textViewHumidite.setText(humidite + " %");
                         textViewLeverSoleil.setText(leveSoleil);
                         textViewCoucherSoleil.setText(coucheSoleil);
+                        textViewVent.setText(conversion.convertirVent(prefVent, vent));
 
-
-                        // Convertir l'unité suivant les préférences
-                        String prefVent = prefs.getString("vent", null);
-                        Conversion conversion = new Conversion();
-                        switch (prefVent) {
-                            case "km/h":
-                                textViewVent.setText(getString(R.string.vent_KMH, conversion.convertir(prefVent, vent)));
-                                break;
-                            case "m/s":
-                                textViewVent.setText(getString(R.string.vent_MS, conversion.convertir(prefVent, vent)));
-                                break;
-                            case "mph":
-                                textViewVent.setText(getString(R.string.vent_MPH, conversion.convertir(prefVent, vent)));
-                                break;
-                            case "kts":
-                                textViewVent.setText(getString(R.string.vent_KTS, conversion.convertir(prefVent, vent)));
-                                break;
-                        }
 
                         // Afficher les prévisions dans un graphique
-                        BarChart barChart = findViewById(R.id.barChart);
+//                        new Graphique(this, this, tmax);
+
                         ArrayList<BarEntry> temperature = new ArrayList<>();
 
                         for (int i = 0; i <= 4; i++) {
-                            if (prefUnite.equals("°C")) {
-                                temperature.add(new BarEntry(i, tmax[i]));
+                            if (prefTemperature.equals("°C")) {
+                                temperature.add(new BarEntry(i, tmaxPrevision[i]));
 
-                            } else if (prefUnite.equals("°F")) {
+                            } else if (prefTemperature.equals("°F")) {
                                 // tmp
-                                tmax[i] = (tmax[i] * 9 / 5) + 32;
-                                temperature.add(new BarEntry(i, tmax[i]));
+                                tmaxPrevision[i] = (tmaxPrevision[i] * 9 / 5) + 32;
+                                temperature.add(new BarEntry(i, tmaxPrevision[i]));
                             } else {
-                                AlertDialog alertDialog = new AlertDialog.Builder(this)
+                                AlertDialog alertDialog = new AlertDialog.Builder(context)
                                         .setIcon(android.R.drawable.ic_dialog_alert)
                                         .setTitle(getString(R.string.error))
                                         .setMessage(R.string.erreur_conversion_unite)
-                                        .setPositiveButton("Ok", null)
+                                        .setPositiveButton(getString(R.string.ok), null)
                                         .show();
                                 alertDialog.setCanceledOnTouchOutside(false);
                             }
@@ -352,10 +314,11 @@ public class MainActivity extends AppCompatActivity {
                         barDataSet.setValueTextSize(16f);
 
                         BarData barData = new BarData(barDataSet);
-                        barChart.setFitBars(true);
-                        barChart.setData(barData);
-                        barChart.getDescription().setText(getString(R.string.meteo_semaine));
-                        barChart.animateY(2000);
+                        graph.setFitBars(true);
+                        graph.setData(barData);
+                        graph.getDescription().setText(getString(R.string.meteo_semaine));
+                        graph.animateY(2000);
+
 
                         // Si la ville saisie n'a pas été trouvée
                     } catch (JSONException e) {
