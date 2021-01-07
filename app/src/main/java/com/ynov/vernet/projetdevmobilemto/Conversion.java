@@ -31,7 +31,7 @@ public class Conversion extends AppCompatActivity {
                         .setIcon(android.R.drawable.ic_dialog_alert)
                         .setTitle(getString(R.string.error))
                         .setMessage(R.string.erreur_conversion_unite)
-                        .setPositiveButton("Ok", null)
+                        .setPositiveButton(getString(R.string.ok), null)
                         .show();
                 alertDialog.setCanceledOnTouchOutside(false);
             }

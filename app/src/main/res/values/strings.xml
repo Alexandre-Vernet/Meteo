@@ -9,8 +9,8 @@
     <string name="tmax">TMax</string>
     <string name="humidite">Humidity</string>
     <string name="vent">Wind</string>
-    <string name="lever_soleil">Sunset</string>
-    <string name="coucher_soleil">Sunrise</string>
+    <string name="lever_soleil">Sunrise</string>
+    <string name="coucher_soleil">Sunset</string>
     <string name="saisir_ville">Enter a city</string>
     <string name="tmp_C">%1$S °C</string>
     <string name="TMin_C">TMin : %1$S °C</string>
@@ -31,7 +31,7 @@
     <string name="recuperer_localisation">Get localisation</string>
     <string name="impossible_recupe_localisation">Impossible to get the localisation</string>
     <string name="activer">Activate</string>
-    <string name="voulez_vous_vraiment_quitter">Do you really want to quit the app</string>
+    <string name="voulez_vous_vraiment_quitter">Do you really want to quit the app ?</string>
     <string name="oui">Yes</string>
     <string name="non">No</string>
     <string name="quitter">Leave</string>
@@ -49,7 +49,6 @@
     <string name="general">General</string>
     <string name="parametres">Settings</string>
     <string name="pas_internet">No internet connection</string>
-    <string name="format_24h">24h format</string>
     <string name="tmp_F">%1$S °F</string>
     <string name="T_Min_F">TMin : %1$S °F</string>
     <string name="T_Max_F">TMax : %1$S °F</string>

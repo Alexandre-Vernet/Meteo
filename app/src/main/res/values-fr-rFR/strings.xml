@@ -6,8 +6,8 @@
     <string name="icone_meteo">icone meteo</string>
     <string name="condition">Condition</string>
     <string name="temperature">Température</string>
-    <string name="tmin">tmin</string>
-    <string name="tmax">tmax</string>
+    <string name="tmin">Tmin</string>
+    <string name="tmax">Tmax</string>
     <string name="humidite">Humidité</string>
     <string name="vent">Vent</string>
     <string name="lever_soleil">Lever soleil</string>
@@ -21,7 +21,7 @@
     <string name="TMin_C">TMin : %1$S °C</string>
     <string name="humidite2">Humidité : %1$S</string>
     <string name="vent_KMH">Vent : %1$S km / h</string>
-    <string name="ville_non_trouvee">Prévisions météo pour la semaine</string>
+    <string name="ville_non_trouvee">La ville saisie n\'a pas été trouvée</string>
     <string name="ok">Ok</string>
     <string name="entrez_ville">Entrez une ville</string>
     <string name="paris">Paris</string>
@@ -31,7 +31,7 @@
     <string name="recuperer_localisation">Récupérer la localisation</string>
     <string name="impossible_recupe_localisation">Impossible de récupérer votre emplacement</string>
     <string name="activer">Activer</string>
-    <string name="voulez_vous_vraiment_quitter">Voulez-vous vraiment quitter l\'application</string>
+    <string name="voulez_vous_vraiment_quitter">Voulez-vous vraiment quitter l\'application ?</string>
     <string name="oui">Oui</string>
     <string name="non">Non</string>
     <string name="quitter">Quitter</string>
@@ -44,11 +44,10 @@
     <string name="general">Général</string>
     <string name="parametres">Paramètres</string>
     <string name="pas_internet">Aucune connexion internet</string>
-    <string name="format_24h">format 24h</string>
     <string name="tmp_F">%1$S°F</string>
     <string name="T_Min_F">TMin : %1$dS°F</string>
     <string name="T_Max_F">TMax : %1$S °F</string>
-    <string name="erreur_conversion_unite">Erreur dans la converstion des unités</string>
+    <string name="erreur_conversion_unite">Erreur dans la conversion des unités</string>
     <string name="vent_MS">Vent  : %1$S m / s</string>
     <string name="vent_MPH">Vent : %1$S mph</string>
     <string name="vent_KTS">Vent : %1$S nœud</string>

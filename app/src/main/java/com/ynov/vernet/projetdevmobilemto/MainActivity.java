@@ -50,6 +50,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Widgets
     ImageView imageViewIcone;
     EditText editTextVille;
     TextView textViewVille, textViewJour, textViewTemperature, textViewCondition, textViewTMin, textViewTMax, textViewHumidite,
@@ -151,14 +152,15 @@ public class MainActivity extends AppCompatActivity {
                     ville = addresses.get(0).getLocality();
                     url = "https://www.prevision-meteo.ch/services/json/" + ville;
 
-
                     // Stocker la ville dans la mémoire
                     SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putString("ville", ville);
                     editor.apply();
-                }
+                } else {
+                    url = "https://www.prevision-meteo.ch/services/json/Paris";
 
+                }
                 // Gestion des erreurs
             } catch (Exception e) {
                 e.printStackTrace();
@@ -167,8 +169,16 @@ public class MainActivity extends AppCompatActivity {
             // Si on n'a pas la permission LOCALISATION
         } else if (grantResults.length > 0) {
 
-            if (ville == null) {
+            SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+            ville = sharedPref.getString("ville", "paris");
 
+            // Si une ville a déjà pu être enregistré
+            if (ville != null) {
+                // Récupérer la dernière localisation enregistrée
+                url = "https://www.prevision-meteo.ch/services/json/" + ville;
+                Toast.makeText(this, "Récupération de la dernière localisation connue", Toast.LENGTH_LONG).show();
+
+            } else {
                 // Récupération de la météo de Paris
                 url = "https://www.prevision-meteo.ch/services/json/Paris";
 
@@ -176,15 +186,6 @@ public class MainActivity extends AppCompatActivity {
                 Snackbar.make(findViewById(R.id.barChart), getString(R.string.impossible_recupe_localisation), Snackbar.LENGTH_LONG)
                         .setAction(R.string.activer, v -> startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)))
                         .show();
-
-                // Si une ville a été enregistré dans la mémoire
-            } else {
-                // Récupérer la dernière localisation enregistrée
-                SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
-                String ville = prefs.getString("ville", null);
-
-                url = "https://www.prevision-meteo.ch/services/json/" + ville;
-                Toast.makeText(this, "Récupération de la dernière localisation connue", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -329,8 +330,7 @@ public class MainActivity extends AppCompatActivity {
                                     .setTitle(R.string.error)
                                     .setMessage(R.string.ville_non_trouvee)
                                     .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
-                                        Intent intent = new Intent(getApplicationContext(), VilleActivity.class);
-                                        startActivity(intent);
+                                        startActivity(new Intent(getApplicationContext(), VilleActivity.class));
                                         finish();
                                     })
                                     .show();
