@@ -76,6 +76,7 @@ L'application possède plusieurs fichiers de traductions :
 - Espagnol
 - Italien
 - Allemand
+
 L'application est capable de reconnaître la langue utilisée par l'appareil. Si ce dernier est configuré dans une des langues citées au dessus, elle traduira chaque texte dans la traduction appropriée, sinon, elle choisira l'anglais comme langue par défaut.
 
 ![langue_allemand](https://user-images.githubusercontent.com/72151831/104055061-67c59380-51ee-11eb-9dc4-9ddb964e4e21.jpg)
