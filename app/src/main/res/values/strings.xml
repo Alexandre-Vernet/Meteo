@@ -5,16 +5,16 @@
     <string name="icone_meteo">Current condition</string>
     <string name="condition">Condition</string>
     <string name="temperature">Temperature</string>
-    <string name="tmin">TMin</string>
-    <string name="tmax">TMax</string>
+    <string name="tmin" translatable="false">TMin</string>
+    <string name="tmax" translatable="false">TMax</string>
     <string name="humidite">Humidity</string>
     <string name="vent">Wind</string>
     <string name="lever_soleil">Sunrise</string>
     <string name="coucher_soleil">Sunset</string>
     <string name="saisir_ville">Enter a city</string>
-    <string name="tmp_C">%1$S °C</string>
-    <string name="TMin_C">TMin : %1$S °C</string>
-    <string name="TMax_C">TMax : %1$S °C</string>
+    <string name="tmp_C" translatable="false">%1$S °C</string>
+    <string name="TMin_C" translatable="false">TMin : %1$S °C</string>
+    <string name="TMax_C" translatable="false">TMax : %1$S °C</string>
     <string name="temperatures">Temperatures</string>
     <string name="error">Error</string>
     <string name="pas_fonctionne">Sorry, it\' s doesn\'t work</string>
@@ -24,7 +24,7 @@
     <string name="ville_non_trouvee">The entered city was not found</string>
     <string name="ok">Ok</string>
     <string name="entrez_ville">Enter a city</string>
-    <string name="paris">Paris</string>
+    <string name="paris" translatable="false">Paris</string>
     <string name="valider">Validate</string>
     <string name="zone_txt_ne_peut_pas_etre_vide">The textbox cannot be empty</string>
     <string name="localisation">Localisation</string>
@@ -49,9 +49,9 @@
     <string name="general">General</string>
     <string name="parametres">Settings</string>
     <string name="pas_internet">No internet connection</string>
-    <string name="tmp_F">%1$S °F</string>
-    <string name="T_Min_F">TMin : %1$S °F</string>
-    <string name="T_Max_F">TMax : %1$S °F</string>
+    <string name="tmp_F" translatable="false">%1$S °F</string>
+    <string name="T_Min_F" translatable="false">TMin : %1$S °F</string>
+    <string name="T_Max_F" translatable="false">TMax : %1$S °F</string>
     <string name="erreur_conversion_unite">Error in unit convert</string>
     <string name="vent_MS">Wind : %1$S m / s</string>
     <string name="vent_MPH">Wind : %1$S mph</string>
