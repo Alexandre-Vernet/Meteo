@@ -8,10 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -44,8 +40,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
     // Graphique
     BarChart graph;
 
-    // GPS
-    Location gps_loc = null, network_loc = null;
-
     String url, ville;
 
     boolean recupLocalisation = false;
@@ -74,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Widgets
         imageViewIcone = findViewById(R.id.imageViewIcone);
         editTextVille = findViewById(R.id.editTextVille);
         textViewVille = findViewById(R.id.textViewVille);
@@ -100,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         String vent = prefs.getString("vent", null);
 
         if (temperature == null || vent == null) {
-            // Envoyer une donnée dans la mémoire
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("temperature", "°C");
             editor.putString("vent", "km/h");
@@ -111,8 +100,10 @@ public class MainActivity extends AppCompatActivity {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (Objects.requireNonNull(Objects.requireNonNull(connectivityManager).getNetworkInfo(ConnectivityManager.TYPE_MOBILE)).getState() == NetworkInfo.State.CONNECTED || Objects.requireNonNull(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)).getState() == NetworkInfo.State.CONNECTED) {
             Log.d(TAG, "onCreate: Internet disponible");
+
             // Demander la permission LOCALISATION
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+
         } else {
             Log.d(TAG, "onCreate: Internet indisponible");
             Snackbar.make(findViewById(R.id.fab), getString(R.string.pas_internet), Snackbar.LENGTH_LONG)
@@ -127,67 +118,25 @@ public class MainActivity extends AppCompatActivity {
         // Si on a la permission LOCALISATION
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-            // Vérifier les permissions réseaux et GPS plus précis
-            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            try {
-                assert locationManager != null;
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-                    return;
-                gps_loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                network_loc = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            // Récupérer la localisation
+            Localisation localisation = new Localisation(this, this);
+            ville = localisation.recupererLocalisation();
+            url = "https://www.prevision-meteo.ch/services/json/" + ville;
 
-            // Récupérer les coordonnées fournies par le GPS ou réseau
-            double latitude;
-            double longitude;
-            Location final_loc;
-            if (gps_loc != null) {
-                final_loc = gps_loc;
-                latitude = final_loc.getLatitude();
-                longitude = final_loc.getLongitude();
-            } else if (network_loc != null) {
-                final_loc = network_loc;
-                latitude = final_loc.getLatitude();
-                longitude = final_loc.getLongitude();
-            } else {
-                latitude = 0.0;
-                longitude = 0.0;
-            }
-
-            // Déterminer la position en fonction des coordonnées du GPS
-            try {
-                Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                if (addresses != null) {
-                    // Récupérer le nom de la ville
-                    ville = addresses.get(0).getLocality();
-                    url = "https://www.prevision-meteo.ch/services/json/" + ville;
-
-                    // Stocker la ville dans la mémoire
-                    SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putString("ville", ville);
-                    editor.apply();
-                } else {
-                    url = "https://www.prevision-meteo.ch/services/json/Paris";
-
-                }
-                // Gestion des erreurs
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            // Stocker la ville dans la mémoire
+            SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("ville", ville);
+            editor.apply();
 
             // Si on n'a pas la permission LOCALISATION
         } else if (grantResults.length > 0) {
 
+            // Récupérer le dernier emplacement connu
             SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
             ville = sharedPref.getString("ville", null);
 
-            // Si une ville a déjà pu être enregistré
             if (ville != null) {
-                // Récupérer la dernière localisation enregistrée
                 url = "https://www.prevision-meteo.ch/services/json/" + ville;
                 Toast.makeText(this, "Récupération de la dernière localisation connue", Toast.LENGTH_LONG).show();
 
