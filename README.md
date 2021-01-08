@@ -25,7 +25,7 @@ Si l'utilisateur refuse, l'application va automatiquement récupérer la météo
 
 
 # Fonctionnement 
-L'application va vérifier que l'appareil est bien connecté à Internet. Si c'est le cas, l'application va déterminer la position de l'utilisateur et afficher la météo de la ville dans laquelle il se situe. L'application récupère le nom de la ville, la température, les températures minimum et maximum de la journée, le taux d'humidité, la vitesse du vent ainsi que l'heure de lever et de coucher du soleil. 
+L'application va vérifier que l'appareil est bien connecté à internet. Si c'est le cas, l'application va déterminer la position de l'utilisateur et afficher la météo de la ville dans laquelle il se situe. L'application récupère le nom de la ville, la température, les températures minimum et maximum de la journée, le taux d'humidité, la vitesse du vent ainsi que l'heure de lever et de coucher du soleil. 
 
 ![accueil](https://user-images.githubusercontent.com/72151831/104054704-dd7d2f80-51ed-11eb-921f-cc358eff54c3.jpg)
 
@@ -48,7 +48,7 @@ Un bouton est présent en bas à droite de l'écran pour afficher un menu.
 Ce menu possède 3 options : 
 - Récupérer la météo de la ville dans laquelle l'appareil se situe
 - Saisir une ville pour récupérer la météo de n'importe quelle ville de France (exemple : Paris)
-- Paramètres pour modifier les unités de températures (°C ou °F) ainsi que la vitesse du vent (km / h, mph, noeuds etc). Ces données seront stockées  dans la mémoire du téléphone et réutilisée à chaque ouverture de l'application et jusqu'aux prochains changements.Ce menu inclut également la version de l'application ainsi que le noms des développeurs.
+- Paramètres pour modifier les unités de températures (°C ou °F) ainsi que la vitesse du vent (km / h, mph, noeuds etc). Ces données seront stockées  dans la mémoire du téléphone et réutilisée à chaque ouverture de l'application et jusqu'aux prochains changements.Ce menu inclut également la version de l'application ainsi que les noms des développeurs.
 
 ![preference](https://user-images.githubusercontent.com/72151831/104051160-fbe02c80-51e7-11eb-9180-b7768efde4a8.jpg)
 ![preference_changer_unite](https://user-images.githubusercontent.com/72151831/104051166-fd115980-51e7-11eb-946b-ce6d6ef73531.jpg)
@@ -56,7 +56,7 @@ Ce menu possède 3 options :
 
 
 # Raccourcis
-Des raccourcis sur l'icone de l'application sont présent pour démarrer directement le menu "Saisir une ville" ou "Paramètres".
+Des raccourcis sur l'icone de l'application sont présents pour démarrer directement l'activité "Saisir une ville" ou "Paramètres".
 
 ![raccourcis](https://user-images.githubusercontent.com/72151831/104051071-d6532300-51e7-11eb-9b4c-c93d8f0c85ab.jpg)
 
