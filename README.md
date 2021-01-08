@@ -8,6 +8,8 @@ Application mobile récupérant des informations météorologique sur l'emplacem
 # Pré-requis
 L'application a besoin d'une connexion internet pour fonctionner. Si ce n'est pas le cas, une boîte de texte apparaîtra en bas de l'écran pour rediriger dans les paramètres réseaux.
 
+![Alt text](\app\src\main\res\drawable?raw=true "Optional Title")
+
 # 1er lancement
 A l'ouverture, l'application va demander la permission LOCALISATION.
 Si l'utilisateur refuse, l'application va automatiquement récupérer la météo de Paris et suggérer d'autoriser la localisation pour le bon fonctionnement de l'application. 
