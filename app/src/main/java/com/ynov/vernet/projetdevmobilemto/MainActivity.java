@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (grantResults.length > 0) {
 
             SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-            ville = sharedPref.getString("ville", "paris");
+            ville = sharedPref.getString("ville", null);
 
             // Si une ville a déjà pu être enregistré
             if (ville != null) {
@@ -214,9 +214,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         RequestQueue queue = com.android.volley.toolbox.Volley.newRequestQueue(this);
-//        if (url.length() <= 57) {
-//            return;
-//        }
+        if (url.length() <= 45) {
+            Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -236,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                         String tmp = current_condition.getString("tmp");
                         String condition = current_condition.getString("condition");
                         String humidite = current_condition.getString("humidity");
-                        String vent = current_condition.getString("wnd_gust");
+                        String vent = current_condition.getString("wnd_spd");
 
                         // fcst_day_0
                         JSONObject fcst_day_0 = jsonObject.getJSONObject("fcst_day_0");
@@ -302,8 +303,6 @@ public class MainActivity extends AppCompatActivity {
 
 
                         // Afficher les prévisions dans un graphique
-//                        new Graphique(this, this, tmax);
-
                         ArrayList<BarEntry> temperature = new ArrayList<>();
 
                         for (int i = 0; i <= 4; i++) {
@@ -311,7 +310,6 @@ public class MainActivity extends AppCompatActivity {
                                 temperature.add(new BarEntry(i, tmaxPrevision[i]));
 
                             } else if (prefTemperature.equals("°F")) {
-                                // tmp
                                 tmaxPrevision[i] = (tmaxPrevision[i] * 9 / 5) + 32;
                                 temperature.add(new BarEntry(i, tmaxPrevision[i]));
                             } else {
