@@ -2,8 +2,11 @@
 Projet de fin de module en Dev Mobile.
 Ce projet a été réalisé en Java sous Android Studio 4.1.1 par Alexandre Vernet et Valentin Arpin
 
+# Description
+Application mobile récupérant des informations météorologique sur l'emplacement déterminé ou sur une ville recherchée. 
+
 # Pré-requis
-L'application a besoin d'une connexion Internet pour fonctionner. Si ce n'est pas le cas, une boîte de texte apparaîtra en bas de l'écran pour rediriger dans les paramètres réseaux.
+L'application a besoin d'une connexion internet pour fonctionner. Si ce n'est pas le cas, une boîte de texte apparaîtra en bas de l'écran pour rediriger dans les paramètres réseaux.
 
 # 1er lancement
 A l'ouverture, l'application va demander la permission LOCALISATION.
