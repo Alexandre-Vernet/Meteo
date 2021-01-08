@@ -94,6 +94,19 @@ public class MainActivity extends AppCompatActivity {
         // Gérer le menu
         new Menu(this, this);
 
+        // Définir les préférences d'unité par défaut
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String temperature = prefs.getString("temperature", null);
+        String vent = prefs.getString("vent", null);
+
+        if (temperature == null || vent == null) {
+            // Envoyer une donnée dans la mémoire
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("temperature", "°C");
+            editor.putString("vent", "km/h");
+            editor.apply();
+        }
+
         // Vérifier la connexion Internet
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (Objects.requireNonNull(Objects.requireNonNull(connectivityManager).getNetworkInfo(ConnectivityManager.TYPE_MOBILE)).getState() == NetworkInfo.State.CONNECTED || Objects.requireNonNull(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)).getState() == NetworkInfo.State.CONNECTED) {
@@ -189,7 +202,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
         // Si une ville a été envoyée de la VilleActivity
         Bundle extras = getIntent().getExtras();
         if (extras != null)
@@ -202,6 +214,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         RequestQueue queue = com.android.volley.toolbox.Volley.newRequestQueue(this);
+//        if (url.length() <= 57) {
+//            return;
+//        }
+
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                     try {
