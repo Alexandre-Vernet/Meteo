@@ -9,7 +9,7 @@ Application mobile récupérant des informations météorologique sur l'emplacem
 
 # Pré-requis
 L'application a besoin d'une connexion internet pour fonctionner. Si ce n'est pas le cas, une boîte de texte apparaîtra en bas de l'écran pour rediriger dans les paramètres réseaux.
-![pas_internet](https://user-images.githubusercontent.com/72151831/104048548-ac97fd00-51e3-11eb-8537-47a7c98684a2.jpg)
+![pas_internet2](https://user-images.githubusercontent.com/72151831/104050755-62187f80-51e7-11eb-9670-1281a39bc92a.jpg)
 
 # 1er lancement
 A l'ouverture, l'application va demander la permission LOCALISATION.
