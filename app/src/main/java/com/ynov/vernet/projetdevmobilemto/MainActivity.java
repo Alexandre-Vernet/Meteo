@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
     String url, ville;
 
-    boolean recupLocalisation = false;
-
     // Débug
     private static final String TAG = "MainActivity";
 
@@ -64,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         imageViewIcone = findViewById(R.id.imageViewIcone);
         editTextVille = findViewById(R.id.editTextVille);
@@ -155,11 +154,6 @@ public class MainActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null)
             url = "https://www.prevision-meteo.ch/services/json/" + extras.getString("ville");
-
-
-        // Bouton récupérer la localisation
-        if (recupLocalisation)
-            url = "https://www.prevision-meteo.ch/services/json/" + ville;
 
 
         RequestQueue queue = com.android.volley.toolbox.Volley.newRequestQueue(this);

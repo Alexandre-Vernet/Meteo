@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,10 +37,10 @@ public class VilleActivity extends AppCompatActivity {
 
             // Si la zone est vide
             if (editTextVille.getText().toString().isEmpty()) {
-                editTextVille.setError("La zone de texte ne peut pas être vide");
+                editTextVille.setError(getString(R.string.zone_txt_ne_peut_pas_etre_vide));
 
-                // Supprimer l'erreur au bout de 2s
-                new Handler().postDelayed(() -> editTextVille.setError(null), 2000);
+                // Supprimer l'erreur au bout de 3s
+                new Handler().postDelayed(() -> editTextVille.setError(null), 3000);
 
             } else {
 
