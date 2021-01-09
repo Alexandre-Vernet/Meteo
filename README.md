@@ -63,7 +63,10 @@ Des raccourcis sur l'icone de l'application sont présents pour démarrer direct
 
 
 # Widget
-L'app possède son propre widget affichant le nom de la ville dans laquelle l'appareil a été localisé ainsi que la température actuelle.
+L'app possède son propre widget affichant la température et soit : 
+- Le nom de la ville dans laquelle l'appareil a été localisé
+- La ville saisie
+
 Au clic du widget, l'application se lance.
 
 ![widget](https://user-images.githubusercontent.com/72151831/104051113-e408a880-51e7-11eb-9116-96978f6c0429.jpg)
