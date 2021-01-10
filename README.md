@@ -6,17 +6,18 @@ Ce projet a été réalisé en Java sous Android Studio 4.1.1 par Alexandre Vern
 
 
 
-# Description
+## Description
 Application mobile récupérant des informations météorologique sur l'emplacement déterminé ou sur une ville recherchée. 
 
-# Pré-requis
+## Pré-requis
 L'application a besoin d'une connexion internet pour fonctionner. Si ce n'est pas le cas, une boîte de texte apparaîtra en bas de l'écran pour rediriger dans les paramètres réseaux.
+Ne fonctionne pas sur émulateur
 
 ![pas_internet](https://user-images.githubusercontent.com/72151831/104051027-c3d8e980-51e7-11eb-9d8a-d34d50fc6c78.jpg)
 
 
 
-# 1er lancement
+## 1er lancement
 A l'ouverture, l'application va demander la permission LOCALISATION.
 Si l'utilisateur refuse, l'application va automatiquement récupérer la météo de Paris et suggérer d'autoriser la localisation pour le bon fonctionnement de l'application.
 
@@ -24,21 +25,21 @@ Si l'utilisateur refuse, l'application va automatiquement récupérer la météo
 
 
 
-# Fonctionnement 
+## Fonctionnement 
 L'application va vérifier que l'appareil est bien connecté à internet. Si c'est le cas, l'application va déterminer la position de l'utilisateur et afficher la météo de la ville dans laquelle il se situe. L'application récupère le nom de la ville, la température, les températures minimum et maximum de la journée, le taux d'humidité, la vitesse du vent ainsi que l'heure de lever et de coucher du soleil. 
 
 ![accueil](https://user-images.githubusercontent.com/72151831/104054704-dd7d2f80-51ed-11eb-921f-cc358eff54c3.jpg)
 
 
 
-# Graphiques
+## Graphiques
 Nous avons utilisé la librairie AndroidChart pour créer un graphique de prévision pour la semaine permettant de prévoir les températures de la semaine en cours.
 
 ![graphique](https://user-images.githubusercontent.com/72151831/104054580-a73fb000-51ed-11eb-8f2b-60d2b9bd3130.jpg)
 
 
 
-# Menu
+## Menu
 Un bouton est présent en bas à droite de l'écran pour afficher un menu. 
 
 ![menu](https://user-images.githubusercontent.com/72151831/104052188-9e4cdf80-51e9-11eb-84ba-8f18394de4df.jpg)
@@ -55,14 +56,14 @@ Ce menu possède 3 options :
 
 
 
-# Raccourcis
+## Raccourcis
 Des raccourcis sur l'icone de l'application sont présents pour démarrer directement l'activité "Saisir une ville" ou "Paramètres".
 
 ![raccourcis](https://user-images.githubusercontent.com/72151831/104051071-d6532300-51e7-11eb-9b4c-c93d8f0c85ab.jpg)
 
 
 
-# Widget
+## Widget
 L'app possède son propre widget affichant la température et soit : 
 - Le nom de la ville dans laquelle l'appareil a été localisé
 - La ville saisie
@@ -73,7 +74,7 @@ Au clic du widget, l'application se lance.
 
 
 
-# Langues
+## Langues
 L'application possède plusieurs fichiers de traductions : 
 - Français
 - Espagnol
@@ -88,7 +89,7 @@ L'application est capable de reconnaître la langue utilisée par l'appareil. Si
 
 
 
-# Responsive
+## Responsive
 L'application est responsive, aussi bien en format portrait qu'en paysage.
 
 ![responsive_accueil_1](https://user-images.githubusercontent.com/72151831/104055339-e6223580-51ee-11eb-8516-a90bcc2d973e.jpg)
