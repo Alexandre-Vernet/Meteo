@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
             // Récupérer la localisation
             Localisation localisation = new Localisation(this, this);
             ville = localisation.recupererLocalisation();
+            Log.d(TAG, "Emplacement : " + ville);
             url = "https://www.prevision-meteo.ch/services/json/" + ville;
 
             // Stocker la ville dans la mémoire
