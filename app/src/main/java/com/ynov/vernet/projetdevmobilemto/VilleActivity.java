@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.InputType;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +15,7 @@ public class VilleActivity extends AppCompatActivity {
 
     ImageView imageViewIcone;
     TextView textViewTemperature;
-    EditText editTextVille;
+    AutoCompleteTextView autoComplete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,29 +25,33 @@ public class VilleActivity extends AppCompatActivity {
         // Référence
         imageViewIcone = findViewById(R.id.imageViewIcone);
         textViewTemperature = findViewById(R.id.textViewTemperature);
-        editTextVille = findViewById(R.id.editTextVille);
+        autoComplete = findViewById(R.id.autoComplete);
+
+        String[] countries = getResources().getStringArray(R.array.cities);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, countries);
+        autoComplete.setAdapter(adapter);
 
         // Ouvrir le clavier
-        editTextVille.requestFocus();
+        autoComplete.requestFocus();
 
         // 1ere lettre en majuscule
-        editTextVille.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
+        autoComplete.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
         // Au clic du bouton
         findViewById(R.id.btnValider).setOnClickListener(v -> {
 
             // Si la zone est vide
-            if (editTextVille.getText().toString().isEmpty()) {
-                editTextVille.setError(getString(R.string.zone_txt_ne_peut_pas_etre_vide));
+            if (autoComplete.getText().toString().isEmpty()) {
+                autoComplete.setError(getString(R.string.zone_txt_ne_peut_pas_etre_vide));
 
                 // Supprimer l'erreur au bout de 3s
-                new Handler().postDelayed(() -> editTextVille.setError(null), 3000);
+                new Handler().postDelayed(() -> autoComplete.setError(null), 3000);
 
             } else {
 
                 // Démarrer l'activité en envoyant le nom de la ville saisie
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("ville", editTextVille.getText().toString());
+                intent.putExtra("ville", autoComplete.getText().toString());
                 startActivity(intent);
                 finish();
             }

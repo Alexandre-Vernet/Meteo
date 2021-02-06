@@ -22,7 +22,7 @@
     <string name="vent_KMH">Wind : %1$S km / h</string>
     <string name="meteo_semaine">Weather forecast for the week</string>
     <string name="ville_non_trouvee">The entered city was not found</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="entrez_ville">Enter a city</string>
     <string name="paris" translatable="false">Paris</string>
     <string name="valider">Validate</string>
@@ -38,13 +38,11 @@
     <string name="widget_ville">City widget</string>
     <string name="widget_temperature">Temperature widget</string>
 
-    <!-- Preference Titles -->
-
-    <!-- Messages Preferences -->
+    <!-- Preferences -->
     <string name="reply_title">Value</string>
     <string name="a_propos">About</string>
     <string name="developpeurs">Developers</string>
-    <string name="developpe_par">Developped by Alexandre Vernet and Valentin Arpin</string>
+    <string name="developpe_par">Developed by Alexandre Vernet and Valentin Arpin</string>
     <string name="version">Version</string>
     <string name="general">General</string>
     <string name="parametres">Settings</string>
@@ -57,5 +55,50 @@
     <string name="vent_MPH">Wind : %1$S mph</string>
     <string name="vent_KTS">Wind : %1$S kts</string>
 
-    <!-- Sync Preferences -->
+    <!--Cities-->
+    <string-array name="cities">
+        <item>Paris</item>
+        <item>Marseille</item>
+        <item>Lyon</item>
+        <item>Lille</item>
+        <item>Strasbourg</item>
+        <item>Toulouse</item>
+        <item>Angers</item>
+        <item>Nice</item>
+        <item>Reines</item>
+        <item>Nantes</item>
+        <item>Montpellier</item>
+        <item>Albi</item>
+        <item>Bordeaux</item>
+        <item>Havre</item>
+        <item>Nancy</item>
+        <item>Grenobles</item>
+        <item>Dijon</item>
+        <item>Orleans</item>
+        <item>Toulon</item>
+        <item>Limoges</item>
+        <item>Le Mans</item>
+        <item>Reim</item>
+        <item>Besançon</item>
+        <item>Nimes</item>
+        <item>Tours</item>
+        <item>Rouen</item>
+        <item>Perpignan</item>
+        <item>Avignon</item>
+        <item>Clermont-Ferrand</item>
+        <item>Aix-en-Provence</item>
+        <item>Brest</item>
+        <item>Caen</item>
+        <item>Poitier</item>
+        <item>Rochelle-17</item>
+        <item>Realmont</item>
+        <item>Saint-juery-81</item>
+        <item>Carmaux</item>
+        <item>Arthes</item>
+        <item>Cambon</item>
+        <item>Cunac</item>
+        <item>Terssac</item>
+        <item>Puygouzon</item>
+        <item>Frejairolles</item>
+    </string-array>
 </resources>
