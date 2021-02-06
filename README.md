@@ -11,7 +11,7 @@ Application mobile récupérant des informations météorologique sur l'emplacem
 
 ## Maquette
 
-![maquette](https://user-images.githubusercontent.com/72151831/107120007-4b6b5400-688b-11eb-88db-ef80425bfd3f.png)
+![maquette](https://user-images.githubusercontent.com/72151831/107120070-aef58180-688b-11eb-9c3a-06fae70c61a6.png)
 
 
 
