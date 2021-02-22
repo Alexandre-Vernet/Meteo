@@ -44,4 +44,5 @@
     <string name="vent_MS">Viento : %1$S m / s</string>
     <string name="vent_KTS">Viento : %1$S nodo</string>
     <string name="vent_MPH">Viento : %1$S mph</string>
+    <string name="recuperation_derniere_localisation_connue">Recuperando la última ubicación conocida</string>
 </resources>

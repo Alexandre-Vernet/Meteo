@@ -101,4 +101,5 @@
         <item>Puygouzon</item>
         <item>Frejairolles</item>
     </string-array>
+    <string name="recuperation_derniere_localisation_connue">Retrieving the last known location</string>
 </resources>

@@ -44,4 +44,5 @@
     <string name="a_propos">Über</string>
     <string name="developpeurs">Entwickler</string>
     <string name="developpe_par">Entwickelt von Alexandre Vernet und Valentin Arpin</string>
+    <string name="recuperation_derniere_localisation_connue">Abrufen des letzten bekannten Speicherorts</string>
 </resources>

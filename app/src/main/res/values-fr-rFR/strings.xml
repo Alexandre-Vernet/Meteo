@@ -44,4 +44,5 @@
     <string name="vent_KTS">Vent : %1$S nœud</string>
     <string name="widget_ville">Widget ville</string>
     <string name="widget_temperature">Widget température</string>
+    <string name="recuperation_derniere_localisation_connue">Récupération de la dernière localisation connue</string>
 </resources>

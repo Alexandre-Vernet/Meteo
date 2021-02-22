@@ -44,4 +44,5 @@
     <string name="vent_MS">Vento : %1$S m / s</string>
     <string name="vent_MPH">Vento : %1$S mph</string>
     <string name="vent_KTS">Vento : %1$S nodo</string>
+    <string name="recuperation_derniere_localisation_connue">Recupero dell\'ultima posizione nota</string>
 </resources>

@@ -14,6 +14,7 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import java.text.Normalizer;
 import java.util.List;
 import java.util.Locale;
 
@@ -76,6 +77,10 @@ public class Localisation extends AppCompatActivity {
             if (addresses != null) {
                 // Récupérer le nom de la ville
                 ville = addresses.get(0).getLocality();
+
+                // Supprimer les accents de la ville récupérée
+                String normalized = Normalizer.normalize(ville, Normalizer.Form.NFD);
+                ville = normalized.replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 
             } else {
                 ville = "paris";

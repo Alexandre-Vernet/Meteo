@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         imageViewIcone = findViewById(R.id.imageViewIcone);
         editTextVille = findViewById(R.id.editTextVille);
         textViewVille = findViewById(R.id.textViewVille);
@@ -118,9 +117,8 @@ public class MainActivity extends AppCompatActivity {
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
             // Récupérer la localisation
-            Localisation localisation = new Localisation(this, this);
-            ville = localisation.recupererLocalisation();
-            Log.d(TAG, "Emplacement : " + ville);
+            ville = new Localisation(this, this).recupererLocalisation();
+
             url = "https://www.prevision-meteo.ch/services/json/" + ville;
 
             // Stocker la ville dans la mémoire
@@ -138,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (ville != null) {
                 url = "https://www.prevision-meteo.ch/services/json/" + ville;
-                Toast.makeText(this, "Récupération de la dernière localisation connue", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.recuperation_derniere_localisation_connue), Toast.LENGTH_LONG).show();
 
             } else {
                 // Récupération de la météo de Paris
@@ -158,11 +156,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         RequestQueue queue = com.android.volley.toolbox.Volley.newRequestQueue(this);
-        if (url.length() <= 45) {
-            Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
                     try {
@@ -282,18 +275,12 @@ public class MainActivity extends AppCompatActivity {
                         // Si la ville saisie n'a pas été trouvée
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        if (!url.equals("https://www.prevision-meteo.ch/services/json/null")) {
-                            AlertDialog alertDialog = new AlertDialog.Builder(this)
-                                    .setIcon(android.R.drawable.ic_dialog_alert)
-                                    .setTitle(R.string.error)
-                                    .setMessage(R.string.ville_non_trouvee)
-                                    .setPositiveButton(R.string.ok, (dialogInterface, i) -> {
-                                        startActivity(new Intent(getApplicationContext(), VilleActivity.class));
-                                        finish();
-                                    })
-                                    .show();
-                            alertDialog.setCanceledOnTouchOutside(false);
-                        }
+
+                        // Renvoyer la météo de Paris
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra("ville", "Paris");
+                        startActivity(intent);
+                        finish();
                     }
                 },
 
