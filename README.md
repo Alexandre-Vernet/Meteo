@@ -9,6 +9,12 @@ Ce projet a été réalisé en Java sous Android Studio 4.1.1 par Alexandre Vern
 ## Description
 Application mobile récupérant des informations météorologique sur l'emplacement déterminé ou sur une ville recherchée. 
 
+## Maquette
+
+![maquette](https://user-images.githubusercontent.com/72151831/107120087-cf254080-688b-11eb-8c12-7600e3e063f4.png)
+
+
+
 ## Pré-requis
 L'application a besoin d'une connexion internet pour fonctionner. Si ce n'est pas le cas, une boîte de texte apparaîtra en bas de l'écran pour rediriger dans les paramètres réseaux.
 
