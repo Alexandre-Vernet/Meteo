@@ -1,6 +1,7 @@
 package com.ynov.vernet.projetdevmobilemto;
 
 import android.Manifest;
+import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -122,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
             url = "https://www.prevision-meteo.ch/services/json/" + ville;
 
             // Stocker la ville dans la mémoire
-            SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
+            SharedPreferences sp = getSharedPreferences("prefs", Activity.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
             editor.putString("ville", ville);
             editor.apply();
 
@@ -153,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null)
             url = "https://www.prevision-meteo.ch/services/json/" + extras.getString("ville");
-
 
         RequestQueue queue = com.android.volley.toolbox.Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,

@@ -1,10 +1,7 @@
 package com.ynov.vernet.projetdevmobilemto;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -12,7 +9,6 @@ import android.location.LocationManager;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import java.text.Normalizer;
 import java.util.List;
@@ -40,6 +36,7 @@ public class Localisation extends AppCompatActivity {
 
         // Vérifier les permissions réseaux et GPS plus précis
         LocationManager locationManager = (LocationManager) this.activity.getSystemService(Context.LOCATION_SERVICE);
+        Log.d(TAG, "recupererLocalisation: " + this.activity);
         try {
             assert locationManager != null;
             try {
