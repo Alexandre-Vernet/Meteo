@@ -36,7 +36,6 @@ public class Localisation extends AppCompatActivity {
 
         // Vérifier les permissions réseaux et GPS plus précis
         LocationManager locationManager = (LocationManager) this.activity.getSystemService(Context.LOCATION_SERVICE);
-        Log.d(TAG, "recupererLocalisation: " + this.activity);
         try {
             assert locationManager != null;
             try {

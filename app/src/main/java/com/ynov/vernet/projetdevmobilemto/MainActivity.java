@@ -155,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
         if (extras != null)
             url = "https://www.prevision-meteo.ch/services/json/" + extras.getString("ville");
 
+        Log.d(TAG, "onRequestPermissionsResult: " + url);
+
         RequestQueue queue = com.android.volley.toolbox.Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -284,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 },
 
-                error -> editTextVille.setError(getString(R.string.pas_fonctionne)));
+                error -> Toast.makeText(this, "Erreur", Toast.LENGTH_SHORT).show());
 
         // Ajouter la requête à la RequestQueue.
         queue.add(stringRequest);
