@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 },
 
-                error -> Toast.makeText(this, "Erreur", Toast.LENGTH_SHORT).show());
+                error -> Toast.makeText(this, error.toString(), Toast.LENGTH_LONG).show());
 
         // Ajouter la requête à la RequestQueue.
         queue.add(stringRequest);
