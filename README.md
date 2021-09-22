@@ -2,6 +2,8 @@
 Projet de fin de module en Dev Mobile.
 Ce projet a été réalisé en Java sous Android Studio 4.1.1 par Alexandre Vernet et Valentin Arpin
 
+[Voir sur le playstore](https://play.google.com/store/apps/details?id=com.ynov.vernet.projetdevmobilemto)
+
 ![icone](https://user-images.githubusercontent.com/72151831/104051425-63967780-51e8-11eb-9e6e-8582d3ead120.png)
 
 
