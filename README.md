@@ -1,7 +1,10 @@
 # Weather
 
-![icon](https://user-images.githubusercontent.com/72151831/104051425-63967780-51e8-11eb-9e6e-8582d3ead120.png)
 
+<p align="center">
+<img src="https://github.com/Alexandre-Vernet/Meteo/assets/72151831/7687138c-e04c-4c13-8704-b54162fb668a"
+  width="300px">
+</p>
 
 
 ## Description
