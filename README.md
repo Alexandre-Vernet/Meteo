@@ -1,109 +1,97 @@
-# Météo
-Projet de fin de module en Dev Mobile.
-Ce projet a été réalisé en Java sous Android Studio 4.1.1 par Alexandre Vernet et Valentin Arpin
+# Weather
 
-[Voir sur le playstore](https://play.google.com/store/apps/details?id=com.ynov.vernet.projetdevmobilemto)
-
-![icone](https://user-images.githubusercontent.com/72151831/104051425-63967780-51e8-11eb-9e6e-8582d3ead120.png)
+![icon](https://user-images.githubusercontent.com/72151831/104051425-63967780-51e8-11eb-9e6e-8582d3ead120.png)
 
 
 
 ## Description
-Application mobile récupérant des informations météorologique sur l'emplacement déterminé ou sur une ville recherchée. 
+Get current location to see the weather in your city. Also, you can select a city to see the weater too.
 
-## Maquette
+## Model
 
-![maquette](https://user-images.githubusercontent.com/72151831/107120087-cf254080-688b-11eb-8c12-7600e3e063f4.png)
+![model](https://user-images.githubusercontent.com/72151831/107120087-cf254080-688b-11eb-8c12-7600e3e063f4.png)
 
 
 
-## Pré-requis
-L'application a besoin d'une connexion internet pour fonctionner. Si ce n'est pas le cas, une boîte de texte apparaîtra en bas de l'écran pour rediriger dans les paramètres réseaux.
+## Requirement
+The app need internet connection and current location. If it don't have the access, a dialog would appear to allow it.
 
 ![pas_internet](https://user-images.githubusercontent.com/72151831/104051027-c3d8e980-51e7-11eb-9d8a-d34d50fc6c78.jpg)
 
+App can't work on emulator.
 
-Ne fonctionne pas sur émulateur
 
-
-## 1er lancement
-A l'ouverture, l'application va demander la permission LOCALISATION.
-Si l'utilisateur refuse, l'application va automatiquement récupérer la météo de Paris et suggérer d'autoriser la localisation pour le bon fonctionnement de l'application.
+## 1st launch
+Upon opening, the application will ask for LOCATION permission. If the user declines, the application will automatically retrieve the weather for Paris and suggest allowing location access for proper app functionality.
 
 ![permission](https://user-images.githubusercontent.com/72151831/104051128-ecf97a00-51e7-11eb-9107-7d80dc9344a8.jpg)
 
 
 
-## Fonctionnement 
-L'application va vérifier que l'appareil est bien connecté à internet. Si c'est le cas, l'application va déterminer la position de l'utilisateur et afficher la météo de la ville dans laquelle il se situe. L'application récupère le nom de la ville, la température, les températures minimum et maximum de la journée, le taux d'humidité, la vitesse du vent ainsi que l'heure de lever et de coucher du soleil. 
+## How it's work 
+The application will check if the device is connected to the internet. If it is, the application will determine the user's location and display the weather for the city they are in. The application retrieves the city name, temperature, minimum and maximum temperatures of the day, humidity level, wind speed, as well as the sunrise and sunset times.
 
-![accueil](https://user-images.githubusercontent.com/72151831/104054704-dd7d2f80-51ed-11eb-921f-cc358eff54c3.jpg)
+![home](https://user-images.githubusercontent.com/72151831/104054704-dd7d2f80-51ed-11eb-921f-cc358eff54c3.jpg)
 
 
 
-## Graphiques
-Nous avons utilisé la librairie AndroidChart pour créer un graphique de prévision pour la semaine permettant de prévoir les températures de la semaine en cours.
+## Graph
+The AndroidChart library creates a forecast graph for the week, allowing users to predict temperatures for the current week.
 
-![graphique](https://user-images.githubusercontent.com/72151831/104054580-a73fb000-51ed-11eb-8f2b-60d2b9bd3130.jpg)
+![graph](https://user-images.githubusercontent.com/72151831/104054580-a73fb000-51ed-11eb-8f2b-60d2b9bd3130.jpg)
 
 
 
 ## Menu
-Un bouton est présent en bas à droite de l'écran pour afficher un menu. 
+A button is present at the bottom right of the screen to display a menu wich allow you to : 
+- Retrieve the weather of the city where the device is located.
+- Enter a city to retrieve the weather of any city in France (example: Paris).
+- Settings to modify temperature units (°C or °F) and wind speed (km/h, mph, knots, etc.). These data will be stored in the phone's memory and reused every time the application is opened and until the next changes. This menu also includes the application version and the names of the developers.
 
 ![menu](https://user-images.githubusercontent.com/72151831/104052188-9e4cdf80-51e9-11eb-84ba-8f18394de4df.jpg)
 
-
-
-Ce menu possède 3 options : 
-- Récupérer la météo de la ville dans laquelle l'appareil se situe
-- Saisir une ville pour récupérer la météo de n'importe quelle ville de France (exemple : Paris)
-- Paramètres pour modifier les unités de températures (°C ou °F) ainsi que la vitesse du vent (km / h, mph, noeuds etc). Ces données seront stockées  dans la mémoire du téléphone et réutilisée à chaque ouverture de l'application et jusqu'aux prochains changements.Ce menu inclut également la version de l'application ainsi que les noms des développeurs.
-
-![preference](https://user-images.githubusercontent.com/72151831/104051160-fbe02c80-51e7-11eb-9180-b7768efde4a8.jpg)
-![preference_changer_unite](https://user-images.githubusercontent.com/72151831/104051166-fd115980-51e7-11eb-946b-ce6d6ef73531.jpg)
+![settings](https://user-images.githubusercontent.com/72151831/104051160-fbe02c80-51e7-11eb-9180-b7768efde4a8.jpg)
+![settings-change-unit](https://user-images.githubusercontent.com/72151831/104051166-fd115980-51e7-11eb-946b-ce6d6ef73531.jpg)
 
 
 
-## Raccourcis
-Des raccourcis sur l'icone de l'application sont présents pour démarrer directement l'activité "Saisir une ville" ou "Paramètres".
+## Shortcuts
+Shortcuts on the application icon are available to directly launch the "Enter a city" or "Settings" activities.
 
-![raccourcis](https://user-images.githubusercontent.com/72151831/104051071-d6532300-51e7-11eb-9b4c-c93d8f0c85ab.jpg)
+![shortcuts](https://user-images.githubusercontent.com/72151831/104051071-d6532300-51e7-11eb-9b4c-c93d8f0c85ab.jpg)
 
 
 
 ## Widget
-L'app possède son propre widget affichant la température et soit : 
-- Le nom de la ville dans laquelle l'appareil a été localisé
-- La ville saisie
+The app features its own widget displaying the temperature and either:
+- The name of the city where the device was located
+- The city entered by the user
 
-Au clic du widget, l'application se lance.
+Upon clicking the widget, the application launches.
 
 ![widget](https://user-images.githubusercontent.com/72151831/104051113-e408a880-51e7-11eb-9116-96978f6c0429.jpg)
 
 
+## Languages
+The application has multiple translation files:
+- French
+- Spanish
+- Italian
+- German
 
-## Langues
-L'application possède plusieurs fichiers de traductions : 
-- Français
-- Espagnol
-- Italien
-- Allemand
+The application is capable of recognizing the language used by the device. If the device is configured in one of the languages mentioned above, it will translate each text into the appropriate translation; otherwise, it will choose English as the default language.
 
-L'application est capable de reconnaître la langue utilisée par l'appareil. Si ce dernier est configuré dans une des langues citées au dessus, elle traduira chaque texte dans la traduction appropriée, sinon, elle choisira l'anglais comme langue par défaut.
-
-![langue_allemand](https://user-images.githubusercontent.com/72151831/104055061-67c59380-51ee-11eb-9dc4-9ddb964e4e21.jpg)
-![langue_espagnol](https://user-images.githubusercontent.com/72151831/104055065-685e2a00-51ee-11eb-9379-f927065e2896.jpg)
-![langue_italien](https://user-images.githubusercontent.com/72151831/104055066-685e2a00-51ee-11eb-930e-1af31e06d644.jpg)
+![language_deutch](https://user-images.githubusercontent.com/72151831/104055061-67c59380-51ee-11eb-9dc4-9ddb964e4e21.jpg)
+![langue_spanish](https://user-images.githubusercontent.com/72151831/104055065-685e2a00-51ee-11eb-9379-f927065e2896.jpg)
+![langue_italian](https://user-images.githubusercontent.com/72151831/104055066-685e2a00-51ee-11eb-930e-1af31e06d644.jpg)
 
 
 
 ## Responsive
-L'application est responsive, aussi bien en format portrait qu'en paysage.
 
-![responsive_accueil_1](https://user-images.githubusercontent.com/72151831/104055339-e6223580-51ee-11eb-8516-a90bcc2d973e.jpg)
-![responsive_accueil_2](https://user-images.githubusercontent.com/72151831/104055340-e6bacc00-51ee-11eb-99c6-c24a36dfed8e.jpg)
-![responsive_parametres](https://user-images.githubusercontent.com/72151831/104055341-e6bacc00-51ee-11eb-808c-7df7d6d38245.jpg)
+![responsive_home_1](https://user-images.githubusercontent.com/72151831/104055339-e6223580-51ee-11eb-8516-a90bcc2d973e.jpg)
+![responsive_home_2](https://user-images.githubusercontent.com/72151831/104055340-e6bacc00-51ee-11eb-99c6-c24a36dfed8e.jpg)
+![responsive_settings](https://user-images.githubusercontent.com/72151831/104055341-e6bacc00-51ee-11eb-808c-7df7d6d38245.jpg)
 
 
 
